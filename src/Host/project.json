@@ -16,6 +16,7 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Cors": "1.0.0-rc2-final",
     "IdentityServer4": "1.0.0-beta3",
+    "RigoFunc.OAuth": "1.0.0-*",
     "RigoFunc.IdentityServer": "1.0.0-*"
   },
 
