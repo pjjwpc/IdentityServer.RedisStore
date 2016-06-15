@@ -48,7 +48,7 @@ namespace Host {
                 .SetSigningCredentials(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
-                .UseAspNetCoreIdentity<AppUser, int>();
+                .UseAspNetCoreIdentity<AppUser>();
 
             services.AddCors(options => {
                 options.AddPolicy("AllowCors",
