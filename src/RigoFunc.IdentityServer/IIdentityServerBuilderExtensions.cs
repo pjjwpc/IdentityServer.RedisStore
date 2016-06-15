@@ -11,16 +11,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using RigoFunc.IdentityServer.Services;
 
 namespace RigoFunc.IdentityServer {
     public static class IIdentityServerBuilderExtensions {
         public static IIdentityServerBuilder UseAspNetCoreIdentity<TUser, TKey>(this IIdentityServerBuilder builder) where TUser : IdentityUser<TKey> where TKey : IEquatable<TKey> {
             var services = builder.Services;
 
-            services.TryAddTransient<IEmailSender, MessageSender>();
-            services.TryAddTransient<ISmsSender, MessageSender>();
             services.AddTransient<SignInManager<TUser>, IdentityServerSignInManager<TUser>>();
             services.AddTransient<IProfileService, IdentityProfileService<TUser, TKey>>();
             services.AddTransient<IResourceOwnerPasswordValidator, IdentityResourceOwnerPasswordValidator<TUser>>();

@@ -1,4 +1,4 @@
-﻿namespace Host.Api {
+﻿namespace RigoFunc.IdentityServer.Api {
     public class SendCodeInputModel {
         /// <summary>
         /// 电话号码.

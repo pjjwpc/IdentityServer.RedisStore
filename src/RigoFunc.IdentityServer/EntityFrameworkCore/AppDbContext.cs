@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Host.DAL {
+namespace RigoFunc.IdentityServer.EntityFrameworkCore {
     public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<int>, int> {
         public AppDbContext(DbContextOptions<AppDbContext> options)
            : base(options) {

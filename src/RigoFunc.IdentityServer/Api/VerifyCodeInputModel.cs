@@ -1,9 +1,5 @@
-﻿namespace Host.Api {
-    public class ResetPasswordModel {
-        /// <summary>
-        /// 密码.
-        /// </summary>
-        public string Password { get; set; }
+﻿namespace RigoFunc.IdentityServer.Api {
+    public class VerifyCodeInputModel {
         /// <summary>
         /// 电话号码.
         /// </summary>

@@ -2,12 +2,12 @@
     /// <summary>
     /// Represents all the options you can user to configure the OAuth server.
     /// </summary>
-    public class OAuthServerOptions {
+    public class OAuthOptions {
         /// <summary>
-        /// Gets or sets the OAuth server host URL.
+        /// Gets or sets the host URL.
         /// </summary>
-        /// <value>The OAuth server host URL.</value>
-        public string OAuthUrl { get; set; }
+        /// <value>The host URL.</value>
+        public string HostUrl { get; set; }
         /// <summary>
         /// Gets or sets the name of the scope.
         /// </summary>

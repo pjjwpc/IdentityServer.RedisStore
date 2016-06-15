@@ -2,7 +2,6 @@
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Host.Configuration;
-using Host.DAL;
 using Host.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using RigoFunc.ApiCore.Filters;
 using RigoFunc.IdentityServer;
+using RigoFunc.IdentityServer.EntityFrameworkCore;
 
 namespace Host {
     public class Startup {
@@ -42,6 +44,10 @@ namespace Host {
             .AddEntityFrameworkStores<AppDbContext, int>()
             .AddDefaultTokenProviders();
 
+            services.AddSmlEmailServices(options => {
+
+            });
+
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
 
             var builder = services.AddIdentityServer()
@@ -64,6 +70,16 @@ namespace Host {
             // for the UI
             services
                 .AddMvc()
+                .AddJsonOptions(options => {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                }).AddMvcOptions(options => {
+                    //var policy = new AuthorizationPolicyBuilder()
+                    //     .RequireAuthenticatedUser()
+                    //     .Build();
+                    //options.Filters.Add(new AuthorizeFilter(policy));
+                    options.Filters.Add(new ApiResultFilterAttribute());
+                    options.Filters.Add(new ApiExceptionFilterAttribute());
+                })
                 .AddRazorOptions(razor => {
                     razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());
                 });

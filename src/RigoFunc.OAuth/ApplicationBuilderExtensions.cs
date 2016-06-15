@@ -7,7 +7,7 @@ namespace Microsoft.AspNetCore.Builder {
     /// <summary>
     /// OAuth extensions for <see cref="IApplicationBuilder"/>.
     /// </summary>
-    public static class OAuthApplicationBuilderExtensions {
+    public static class ApplicationBuilderExtensions {
         /// <summary>
         ///  Enables OAuth for the current application.
         /// </summary>
@@ -17,9 +17,9 @@ namespace Microsoft.AspNetCore.Builder {
         public static IApplicationBuilder UseOAuth(this IApplicationBuilder app) {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            var options = app.ApplicationServices.GetRequiredService<IOptions<OAuthServerOptions>>().Value;
+            var options = app.ApplicationServices.GetRequiredService<IOptions<OAuthOptions>>().Value;
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions {
-                Authority = options.OAuthUrl,
+                Authority = options.HostUrl,
                 RequireHttpsMetadata = false,
 
                 ScopeName = options.ScopeName,

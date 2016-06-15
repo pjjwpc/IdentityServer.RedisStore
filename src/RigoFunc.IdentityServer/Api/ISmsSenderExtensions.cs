@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RigoFunc.IdentityServer.Services;
+using RigoFunc.ApiCore.Services;
 
-namespace Host {
+namespace RigoFunc.IdentityServer.Api {
     public static class ISmsSenderExtensions {
         public async static Task<SendSmsResult> SendCodeAsync(this ISmsSender sender, string phoneNumber, string code) {
             return await sender.SendSmsAsync("SMS_5265397", phoneNumber, Tuple.Create("code", code));

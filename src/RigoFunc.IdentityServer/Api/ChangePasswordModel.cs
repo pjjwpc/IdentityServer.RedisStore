@@ -1,4 +1,4 @@
-﻿namespace Host.Api {
+﻿namespace RigoFunc.IdentityServer.Api {
     public class ChangePasswordModel {
         /// <summary>
         /// 用户名.

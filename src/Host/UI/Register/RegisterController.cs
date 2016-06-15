@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Host.DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RigoFunc.IdentityServer.Services;
+using RigoFunc.ApiCore.Services;
+using RigoFunc.IdentityServer.EntityFrameworkCore;
 
 namespace Host.UI.Register {
     public class RegisterController : Controller {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Host.DAL {
+namespace RigoFunc.IdentityServer.EntityFrameworkCore {
     public class AppUser : IdentityUser<int> {
     }
 }

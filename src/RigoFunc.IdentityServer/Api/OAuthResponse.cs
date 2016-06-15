@@ -1,10 +1,10 @@
 ﻿using IdentityModel.Client;
 
-namespace RigoFunc.OAuth {
+namespace RigoFunc.IdentityServer.Api {
     /// <summary>
-    /// Represents the default implementation of the <see cref="IOAuthResponse"/> interface.
+    /// Represents the default implementation of the <see cref="IResponse"/> interface.
     /// </summary>
-    public class OAuthResponse : IOAuthResponse {
+    internal class OAuthResponse : IResponse {
         /// <summary>
         /// Gets the access token.
         /// </summary>
@@ -63,17 +63,17 @@ namespace RigoFunc.OAuth {
         }
 
         /// <summary>
-        /// Creates an <see cref="IOAuthResponse"/> from the specified token response.
+        /// Creates an <see cref="IResponse"/> from the specified token response.
         /// </summary>
         /// <param name="response">The token response.</param>
-        /// <returns>A <see cref="IOAuthResponse"/> indicating a OAuth response.</returns>
-        public static IOAuthResponse FromTokenResponse(TokenResponse response) => new OAuthResponse(response);
+        /// <returns>A <see cref="IResponse"/> indicating a OAuth response.</returns>
+        public static IResponse FromTokenResponse(TokenResponse response) => new OAuthResponse(response);
 
         /// <summary>
-        /// Creates an <see cref="IOAuthResponse"/> indicating a failed OAuth response, with a <paramref name="error"/> if applicable.
+        /// Creates an <see cref="IResponse"/> indicating a failed OAuth response, with a <paramref name="error"/> if applicable.
         /// </summary>
         /// <param name="error">The error.</param>
-        /// <returns>A <see cref="IOAuthResponse"/> indicating a failed OAuth response.</returns>
-        public static IOAuthResponse Failed(string error) => new OAuthResponse(error);
+        /// <returns>A <see cref="IResponse"/> indicating a failed OAuth response.</returns>
+        public static IResponse Failed(string error) => new OAuthResponse(error);
     }
 }

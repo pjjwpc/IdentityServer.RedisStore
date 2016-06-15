@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Host.DAL;
 using IdentityModel.Client;
-using IdentityServer4;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RigoFunc.IdentityServer.Services;
+using RigoFunc.ApiCore.Services;
+using RigoFunc.IdentityServer.EntityFrameworkCore;
 using RigoFunc.OAuth;
 
-namespace Host.Api {
+namespace RigoFunc.IdentityServer.Api {
     [Route("api/[controller]")]
-    public class OAuthController : Controller {
+    public class OAuthController : ControllerBase {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -32,7 +31,7 @@ namespace Host.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<IOAuthResponse> Register([FromBody]RegisterInputModel model) {
+        public async Task<IResponse> Register([FromBody]RegisterInputModel model) {
             if (model == null || !ModelState.IsValid) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -81,7 +80,7 @@ namespace Host.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<IOAuthResponse> Login([FromBody]LoginInputModel model) {
+        public async Task<IResponse> Login([FromBody]LoginInputModel model) {
             if (model == null || !ModelState.IsValid) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -98,7 +97,7 @@ namespace Host.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<IOAuthResponse> VerifyCode([FromBody]VerifyCodeInputModel model) {
+        public async Task<IResponse> VerifyCode([FromBody]VerifyCodeInputModel model) {
             if (model == null || !ModelState.IsValid) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -171,7 +170,7 @@ namespace Host.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<IOAuthResponse> ResetPassword([FromBody]ResetPasswordModel model) {
+        public async Task<IResponse> ResetPassword([FromBody]ResetPasswordModel model) {
             if (model == null || !ModelState.IsValid) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -219,8 +218,8 @@ namespace Host.Api {
             throw new ArgumentNullException("Update User failed");
         }
 
-        private async Task<IOAuthResponse> RequestTokenAsync(string userName, string password) {
-            var tokenEndpoint = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}/{Constants.RoutePaths.Oidc.Token}";
+        private async Task<IResponse> RequestTokenAsync(string userName, string password) {
+            var tokenEndpoint = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}/connect/token";
             _logger.LogInformation($"token_endpoint: {tokenEndpoint}");
             var client = new TokenClient(tokenEndpoint, "system", "secret");
             var response = await client.RequestResourceOwnerPasswordAsync(userName, password, "doctor consultant finance order payment");

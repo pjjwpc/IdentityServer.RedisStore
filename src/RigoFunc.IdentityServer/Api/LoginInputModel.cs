@@ -1,5 +1,5 @@
-﻿namespace Host.Api {
-    public class RegisterInputModel {
+﻿namespace RigoFunc.IdentityServer.Api {
+    public class LoginInputModel {
         /// <summary>
         /// 用户名.
         /// </summary>
@@ -9,12 +9,8 @@
         /// </summary>
         public string Password { get; set; }
         /// <summary>
-        /// 电话号码.
+        /// 是否记住登陆.
         /// </summary>
-        public string PhoneNumber { get; set; }
-        /// <summary>
-        /// 验证码.
-        /// </summary>
-        public string Code { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

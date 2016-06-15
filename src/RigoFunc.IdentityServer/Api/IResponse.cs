@@ -1,8 +1,8 @@
-﻿namespace RigoFunc.OAuth {
+﻿namespace RigoFunc.IdentityServer.Api {
     /// <summary>
     /// Defines the interface for OAuth response.
     /// </summary>
-    public interface IOAuthResponse {
+    public interface IResponse {
         /// <summary>
         /// Gets the access token.
         /// </summary>
