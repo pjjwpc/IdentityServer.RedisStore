@@ -16,13 +16,13 @@ using RigoFunc.IdentityServer.Services;
 
 namespace RigoFunc.IdentityServer {
     public static class IIdentityServerBuilderExtensions {
-        public static IIdentityServerBuilder UseAspNetCoreIdentity<TUser>(this IIdentityServerBuilder builder) where TUser : class {
+        public static IIdentityServerBuilder UseAspNetCoreIdentity<TUser, TKey>(this IIdentityServerBuilder builder) where TUser : IdentityUser<TKey> where TKey : IEquatable<TKey> {
             var services = builder.Services;
 
             services.TryAddTransient<IEmailSender, MessageSender>();
             services.TryAddTransient<ISmsSender, MessageSender>();
             services.AddTransient<SignInManager<TUser>, IdentityServerSignInManager<TUser>>();
-            services.AddTransient<IProfileService, IdentityProfileService>();
+            services.AddTransient<IProfileService, IdentityProfileService<TUser, TKey>>();
             services.AddTransient<IResourceOwnerPasswordValidator, IdentityResourceOwnerPasswordValidator<TUser>>();
             services.AddTransient<ICorsPolicyService, IdentityCorsPolicyService>();
 

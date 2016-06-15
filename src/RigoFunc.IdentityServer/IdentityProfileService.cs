@@ -13,9 +13,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace RigoFunc.IdentityServer {
-    public class IdentityProfileService : IProfileService {
-        private readonly UserManager<IdentityUser<int>> _userManager;
-        public IdentityProfileService(UserManager<IdentityUser<int>> userManager) {
+    public class IdentityProfileService<TUser, TKey> : IProfileService
+        where TUser : IdentityUser<TKey> where TKey : IEquatable<TKey> {
+
+        private readonly UserManager<TUser> _userManager;
+        public IdentityProfileService(UserManager<TUser> userManager) {
             _userManager = userManager;
         }
 
@@ -66,7 +68,7 @@ namespace RigoFunc.IdentityServer {
             }
         }
 
-        private async Task<IEnumerable<Claim>> GetClaimsFromUser(IdentityUser<int> user) {
+        private async Task<IEnumerable<Claim>> GetClaimsFromUser(TUser user) {
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
