@@ -1,7 +1,7 @@
 ﻿{
   "version": "1.0.1-*",
   "description": "RigoFunc's OAuth library that integrate IdentityServer and Asp.Net Core Identity.",
-  "authors": [ "RigoFunc", "rigofunc@gmail.com", "lotosbin", "lotosbin@gmail.com" ],
+  "authors": [ "RigoFunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
     "projectUrl": "https://github.com/xyting/RigoFunc.IdentityServer",
     "licenseUrl": "",
