@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "1.0.1-*",
   "description": "RigoFunc's OAuth library that integrate IdentityServer and Asp.Net Core Identity.",
   "authors": [ "RigoFunc", "rigofunc@gmail.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
