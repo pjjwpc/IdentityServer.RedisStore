@@ -1,7 +1,5 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using RigoFunc.OAuth;
-using RigoFunc.OAuth.Services;
 
 namespace Microsoft.Extensions.DependencyInjection {
     /// <summary>
@@ -16,8 +14,6 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// <returns>The services available in the application.</returns>
         public static IServiceCollection AddOAuth(this IServiceCollection services, Action<OAuthServerOptions> setupAction) {
             services.AddAuthorization();
-            services.AddTransient<IEmailSender, MessageSender>();
-            services.AddTransient<ISmsSender, MessageSender>();
 
             if (setupAction != null) {
                 services.Configure(setupAction);

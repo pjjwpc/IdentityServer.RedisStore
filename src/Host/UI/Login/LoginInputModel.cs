@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Host.UI.Login
-{
-    public class LoginInputModel
-    {
+namespace Host.UI.Login {
+    public class LoginInputModel {
         [Required]
-        public string Username { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
         [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        public bool RememberLogin { get; set; }
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
         public string SignInId { get; set; }
     }
 }

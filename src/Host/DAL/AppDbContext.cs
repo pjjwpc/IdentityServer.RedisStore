@@ -10,7 +10,7 @@ namespace Host.DAL {
         protected override void OnModelCreating(ModelBuilder builder) {
             base.OnModelCreating(builder);
 
-            builder.Entity<IdentityUser<int>>().ToTable("Users");
+            builder.Entity<AppUser>().ToTable("Users");
             builder.Entity<IdentityRole<int>>().ToTable("Roles");
             builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");

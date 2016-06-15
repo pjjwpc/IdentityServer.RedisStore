@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace RigoFunc.OAuth.Services {
+namespace RigoFunc.IdentityServer.Services {
     /// <summary>
     /// Represents the Sms sender services.
     /// </summary>

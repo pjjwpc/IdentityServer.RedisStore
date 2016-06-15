@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RigoFunc.IdentityServer.Services;
 using RigoFunc.OAuth;
-using RigoFunc.OAuth.Services;
 
 namespace Host.UI.OAuth {
     [Route("api/[controller]")]

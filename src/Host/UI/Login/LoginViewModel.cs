@@ -1,16 +1,12 @@
-﻿namespace Host.UI.Login
-{
-    public class LoginViewModel : LoginInputModel
-    {
-        public LoginViewModel()
-        {
+﻿namespace Host.UI.Login {
+    public class LoginViewModel : LoginInputModel {
+        public LoginViewModel() {
         }
 
-        public LoginViewModel(LoginInputModel other)
-        {
-            Username = other.Username;
+        public LoginViewModel(LoginInputModel other) {
+            UserName = other.UserName;
             Password = other.Password;
-            RememberLogin = other.RememberLogin;
+            RememberMe = other.RememberMe;
             SignInId = other.SignInId;
         }
 

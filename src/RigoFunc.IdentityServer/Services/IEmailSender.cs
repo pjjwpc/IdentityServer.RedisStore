@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RigoFunc.OAuth.Services {
+namespace RigoFunc.IdentityServer.Services {
     /// <summary>
     /// Represents an email sender services.
     /// </summary>

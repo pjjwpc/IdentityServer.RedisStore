@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace RigoFunc.OAuth.Services {
+namespace RigoFunc.IdentityServer.Services {
     /// <summary>
     /// Represents the default email and Sms sender services.
     /// </summary>

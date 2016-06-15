@@ -67,7 +67,6 @@ namespace Host {
                 .AddRazorOptions(razor => {
                     razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());
                 });
-            services.AddTransient<UI.Login.LoginService>();
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory) {

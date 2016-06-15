@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RigoFunc.OAuth.Services;
+using RigoFunc.IdentityServer.Services;
 
 namespace Host {
     public static class ISmsSenderExtensions {
