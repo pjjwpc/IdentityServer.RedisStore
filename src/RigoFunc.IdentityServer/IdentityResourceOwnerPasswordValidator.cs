@@ -1,10 +1,8 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
-using System;
 using System.Threading.Tasks;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace RigoFunc.IdentityServer {
     public class IdentityResourceOwnerPasswordValidator<TUser> : IResourceOwnerPasswordValidator where TUser : class {
