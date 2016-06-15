@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using RigoFunc.IdentityServer.Services;
 using RigoFunc.OAuth;
 
-namespace Host.UI.OAuth {
+namespace Host.Api {
     [Route("api/[controller]")]
     public class OAuthController : Controller {
         private readonly UserManager<AppUser> _userManager;

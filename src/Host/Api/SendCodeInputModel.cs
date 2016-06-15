@@ -1,4 +1,4 @@
-﻿namespace Host.UI.OAuth {
+﻿namespace Host.Api {
     public class SendCodeInputModel {
         /// <summary>
         /// 电话号码.

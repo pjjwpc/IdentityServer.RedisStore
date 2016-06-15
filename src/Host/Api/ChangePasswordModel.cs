@@ -1,4 +1,4 @@
-﻿namespace Host.UI.OAuth {
+﻿namespace Host.Api {
     public class ChangePasswordModel {
         /// <summary>
         /// 用户名.

@@ -1,4 +1,4 @@
-﻿namespace Host.UI.OAuth {
+﻿namespace Host.Api {
     public class VerifyCodeInputModel {
         /// <summary>
         /// 电话号码.
