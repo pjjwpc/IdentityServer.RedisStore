@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using Host.DAL;
 using IdentityModel.Client;
 using IdentityServer4;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RigoFunc.IdentityServer.Services;
@@ -14,14 +13,14 @@ using RigoFunc.OAuth;
 namespace Host.UI.OAuth {
     [Route("api/[controller]")]
     public class OAuthController : Controller {
-        private readonly UserManager<IdentityUser<int>> _userManager;
-        private readonly SignInManager<IdentityUser<int>> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger<OAuthController> _logger;
 
-        public OAuthController(UserManager<IdentityUser<int>> userManager,
-            SignInManager<IdentityUser<int>> signInManager,
+        public OAuthController(UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILogger<OAuthController> logger) {
@@ -48,7 +47,7 @@ namespace Host.UI.OAuth {
                 throw new ArgumentException($"cannot verify the code: {model.Code} for the phone: {model.PhoneNumber}");
             }
 
-            user = new IdentityUser<int> { UserName = model.UserName ?? model.PhoneNumber, PhoneNumber = model.PhoneNumber };
+            user = new AppUser { UserName = model.UserName ?? model.PhoneNumber, PhoneNumber = model.PhoneNumber };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded) {
                 await _signInManager.SignInAsync(user, isPersistent: false);
@@ -113,7 +112,7 @@ namespace Host.UI.OAuth {
                     throw new ArgumentException($"cannot verify the code: {model.Code} for the phone: {model.PhoneNumber}");
                 }
 
-                user = new IdentityUser<int> { UserName = model.PhoneNumber, PhoneNumber = model.PhoneNumber };
+                user = new AppUser { UserName = model.PhoneNumber, PhoneNumber = model.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, password);
                 if (result.Succeeded) {
                     await _signInManager.SignInAsync(user, isPersistent: false);
@@ -229,6 +228,6 @@ namespace Host.UI.OAuth {
             return OAuthResponse.FromTokenResponse(response);
         }
 
-        private Task<IdentityUser<int>> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        private Task<AppUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
