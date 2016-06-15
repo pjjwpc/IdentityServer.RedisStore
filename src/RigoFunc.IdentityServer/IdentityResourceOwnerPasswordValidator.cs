@@ -1,16 +1,21 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
+using System;
 using System.Threading.Tasks;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace RigoFunc.IdentityServer {
-    public class IdentityResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator {
-        private readonly UserManager<IdentityUser<int>> _userManager;
-        public IdentityResourceOwnerPasswordValidator(UserManager<IdentityUser<int>> userManager) {
+    public class IdentityResourceOwnerPasswordValidator<TUser, TKey> : IResourceOwnerPasswordValidator
+        where TUser : IdentityUser<TKey>
+        where TKey : IEquatable<TKey> {
+
+        private readonly UserManager<TUser> _userManager;
+        public IdentityResourceOwnerPasswordValidator(UserManager<TUser> userManager) {
             _userManager = userManager;
         }
+
         public async Task<CustomGrantValidationResult> ValidateAsync(string userName, string password, ValidatedTokenRequest request) {
             var user = await _userManager.FindByNameAsync(userName);
             if (user != null && await _userManager.CheckPasswordAsync(user, password))
