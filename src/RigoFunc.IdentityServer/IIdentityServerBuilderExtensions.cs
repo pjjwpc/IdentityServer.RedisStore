@@ -25,15 +25,8 @@ namespace RigoFunc.IdentityServer {
             services.AddTransient<ICorsPolicyService, IdentityCorsPolicyService>();
 
             var paths = new List<string>(Constants.RoutePaths.CorsPaths);
-            
-            // can this by reflection rather than hard code?
-            paths.Add("api/oauth/register");
-            paths.Add("api/oauth/sendcode");
-            paths.Add("api/oauth/login");
-            paths.Add("api/oauth/verifycode");
-            paths.Add("api/oauth/changepassword");
-            paths.Add("api/oauth/resetpassword");
-            paths.Add("api/oauth/update");
+
+            paths.AddRange(Api.Constants.ApiPaths);
             
             // just for allow CORS for Api
             services.AddTransient<ICorsPolicyProvider>(provider => {
