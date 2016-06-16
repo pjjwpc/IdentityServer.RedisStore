@@ -56,8 +56,13 @@ namespace Host {
                 .SetSigningCredentials(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
+                .AddCustomGrantValidator<CustomGrantValidator>()
                 .UseAspNetCoreIdentity<AppUser, int>()
-                .AddCustomGrantValidator<CustomGrantValidator>();
+                .UseAccountApi<AppUser, int>(options => {
+                    options.DefaultClientId = "system";
+                    options.DefaultClientSecret = "secret";
+                    options.DefaultScope = "doctor order payment";
+                });
 
             // for the UI
             services
