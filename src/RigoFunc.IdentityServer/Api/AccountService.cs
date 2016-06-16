@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using RigoFunc.ApiCore.Services;
 using RigoFunc.OAuth;
 using RigoFunc.Utils;
@@ -21,6 +22,7 @@ namespace RigoFunc.IdentityServer.Api {
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly HttpContext _httpContext;
+        private readonly AccountApiOptions _options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountService{TUser, TKey}"/> class.
@@ -28,15 +30,17 @@ namespace RigoFunc.IdentityServer.Api {
         /// <param name="userManager">The user manager.</param>
         /// <param name="signInManager">The sign in manager.</param>
         /// <param name="emailSender">The email sender.</param>
-        /// <param name="smsSender">The Sms sender.</param>
+        /// <param name="smsSender">The SMS sender.</param>
         /// <param name="loggerFactory">The logger factory.</param>
         /// <param name="contextAccessor">The context accessor.</param>
+        /// <param name="options">The options.</param>
         public AccountService(UserManager<TUser> userManager,
             SignInManager<TUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
-            IHttpContextAccessor contextAccessor) {
+            IHttpContextAccessor contextAccessor,
+            IOptions<AccountApiOptions> options) {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -234,10 +238,25 @@ namespace RigoFunc.IdentityServer.Api {
         }
 
         private async Task<IResponse> RequestTokenAsync(string userName, string password) {
-            var tokenEndpoint = $"{_httpContext.Request.Scheme}://{_httpContext.Request.Host.Value}/connect/token";
-            _logger.LogInformation($"token_endpoint: {tokenEndpoint}");
-            var client = new TokenClient(tokenEndpoint, "system", "secret");
-            var response = await client.RequestResourceOwnerPasswordAsync(userName, password, "doctor consultant finance order payment");
+            var endpoint = $"{_httpContext.Request.Scheme}://{_httpContext.Request.Host.Value}/connect/token";
+
+            _logger.LogInformation($"token_endpoint: {endpoint}");
+
+            string clientId = _httpContext.Request.Headers[ApiConstants.ClientId];
+            if (string.IsNullOrWhiteSpace(clientId)) {
+                clientId = _options.DefaultClientId;
+            }
+            string clientSecret = _httpContext.Request.Headers[ApiConstants.ClientSecret];
+            if (string.IsNullOrWhiteSpace(clientSecret)) {
+                clientSecret = _options.DefaultClientSecret;
+            }
+            string scope = _httpContext.Request.Headers[ApiConstants.Scope];
+            if (string.IsNullOrWhiteSpace(scope)) {
+                scope = _options.DefaultScope;
+            }
+
+            var client = new TokenClient(endpoint, clientId, clientSecret);
+            var response = await client.RequestResourceOwnerPasswordAsync(userName, password, scope);
 
             return ApiResponse.FromTokenResponse(response);
         }

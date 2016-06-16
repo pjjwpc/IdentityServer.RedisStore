@@ -4,7 +4,7 @@ namespace RigoFunc.IdentityServer.Api {
     /// <summary>
     /// Represents the default implementation of the <see cref="IResponse"/> interface.
     /// </summary>
-    public class ApiResponse : IResponse {
+    internal class ApiResponse : IResponse {
         /// <summary>
         /// Gets the access token.
         /// </summary>
