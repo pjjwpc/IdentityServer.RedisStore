@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Host.EntityFrameworkCore;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RigoFunc.ApiCore.Services;
-using RigoFunc.IdentityServer.Api;
 using RigoFunc.OAuth;
+using RigoFunc.Utils;
 
-namespace Host.Services {
+namespace RigoFunc.IdentityServer.Api {
     /// <summary>
     /// Represents the default implementation of the <see cref="IAccountService"/> interface.
     /// </summary>
-    public class AccountService<TUser, TKey> : IAccountService 
-        where TUser : IdentityUser<TKey>, new() where TKey : IEquatable<TKey> { 
+    public class AccountService<TUser, TKey> : IAccountService
+        where TUser : IdentityUser<TKey>, new() where TKey : IEquatable<TKey> {
         private readonly UserManager<TUser> _userManager;
         private readonly SignInManager<TUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -23,6 +22,15 @@ namespace Host.Services {
         private readonly ILogger _logger;
         private readonly HttpContext _httpContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountService{TUser, TKey}"/> class.
+        /// </summary>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="signInManager">The sign in manager.</param>
+        /// <param name="emailSender">The email sender.</param>
+        /// <param name="smsSender">The Sms sender.</param>
+        /// <param name="loggerFactory">The logger factory.</param>
+        /// <param name="contextAccessor">The context accessor.</param>
         public AccountService(UserManager<TUser> userManager,
             SignInManager<TUser> signInManager,
             IEmailSender emailSender,
@@ -41,8 +49,7 @@ namespace Host.Services {
         /// Changes the password for the specified user asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the change operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the change operation.</returns>
         public async Task<bool> ChangePasswordAsync(ChangePasswordModel model) {
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null) {
@@ -64,8 +71,7 @@ namespace Host.Services {
         /// Logins with the specified model asynchronous.
         /// </summary>
         /// <param name="model">The login model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the login operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the login operation.</returns>
         public async Task<IResponse> LoginAsync(LoginInputModel model) {
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded) {
@@ -82,8 +88,7 @@ namespace Host.Services {
         /// Registers a new user asynchronous.
         /// </summary>
         /// <param name="model">The register model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the register operation. Task result contains the register repsonse.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the register operation. Task result contains the register response.</returns>
         public async Task<IResponse> RegisterAsync(RegisterInputModel model) {
             var user = await _userManager.FindByNameAsync(model.PhoneNumber);
             if (user != null) {
@@ -112,8 +117,7 @@ namespace Host.Services {
         /// Resets the password for specified user asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the reset operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the reset operation.</returns>
         public async Task<IResponse> ResetPasswordAsync(ResetPasswordModel model) {
             var user = await _userManager.FindByNameAsync(model.PhoneNumber);
             if (user == null) {
@@ -141,8 +145,7 @@ namespace Host.Services {
         /// Sends the specified code asynchronous.
         /// </summary>
         /// <param name="model">The send code model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the send operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the send operation.</returns>
         public async Task<bool> SendCodeAsync(SendCodeInputModel model) {
             var user = await _userManager.FindByNameAsync(model.PhoneNumber);
             if (user == null) {
@@ -163,8 +166,7 @@ namespace Host.Services {
         /// Updates the specified user asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the reset operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the reset operation.</returns>
         public async Task<bool> UpdateAsync(OAuthUser model) {
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
             if (user == null) {
@@ -185,11 +187,9 @@ namespace Host.Services {
         /// Verifies the specified code asynchronous.
         /// </summary>
         /// <param name="model">The veriry code model.</param>
-        /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> represents the verify operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>A <see cref="Task{TResult}"/> represents the verify operation.</returns>
         public async Task<IResponse> VerifyCodeAsync(VerifyCodeInputModel model) {
-            // TODO: generate a randon password.
-            var password = "Honglan@520";
+            var password = $"{GenericUtil.UniqueKey()}@520";
             var user = await _userManager.FindByNameAsync(model.PhoneNumber);
             if (user == null) {
                 user = await _userManager.FindByIdAsync("1");
