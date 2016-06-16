@@ -6,3 +6,6 @@ This repo contains the library integrate IdentityServer and Asp.Net Core Identit
 
 # Wiki
 https://github.com/xyting/RigoFunc.IdentityServer/wiki
+
+# OAuth Client
+https://github.com/xyting/RigoFunc.OAuth
