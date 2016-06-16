@@ -54,18 +54,8 @@ namespace Host {
                 .SetSigningCredentials(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
-                .UseAspNetCoreIdentity<AppUser, int>();
-
-            services.AddCors(options => {
-                options.AddPolicy("AllowCors",
-                    policy => policy
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetPreflightMaxAge(TimeSpan.FromMinutes(3)));
-            });
-
-            builder.AddCustomGrantValidator<CustomGrantValidator>();
+                .UseAspNetCoreIdentity<AppUser, int>()
+                .AddCustomGrantValidator<CustomGrantValidator>();
 
             // for the UI
             services
@@ -92,8 +82,6 @@ namespace Host {
             loggerFactory.AddDebug();
 
             app.UseDeveloperExceptionPage();
-
-            app.UseCors("AllowCors");
 
             app.UseStaticFiles();
 
