@@ -1,0 +1,13 @@
+language: csharp
+dist: trusty
+os: 
+  - linux
+mono:
+  - beta
+branches:
+  only:
+    - master
+    - dev
+script:
+  - ./build.sh --quiet verify
+
