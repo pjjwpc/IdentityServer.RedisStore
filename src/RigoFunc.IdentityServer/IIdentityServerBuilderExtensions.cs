@@ -1,6 +1,4 @@
-﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using IdentityModel;
 using IdentityServer4;
