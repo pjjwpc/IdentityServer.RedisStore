@@ -10,7 +10,7 @@ namespace RigoFunc.IdentityServer.Api {
         /// Registers a new user asynchronous.
         /// </summary>
         /// <param name="model">The register model.</param>
-        /// <returns>A <see cref="Task{TResult}"/> represents the register operation. Task result contains the register repsonse.</returns>
+        /// <returns>A <see cref="Task{TResult}"/> represents the register operation. Task result contains the register response.</returns>
         Task<IResponse> RegisterAsync(RegisterInputModel model);
         /// <summary>
         /// Sends the specified code asynchronous.

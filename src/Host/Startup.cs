@@ -3,7 +3,6 @@ using System.Security.Cryptography.X509Certificates;
 using Host.Configuration;
 using Host.EntityFrameworkCore;
 using Host.Extensions;
-using Host.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using RigoFunc.ApiCore.Filters;
 using RigoFunc.IdentityServer;
-using RigoFunc.IdentityServer.Api;
 
 namespace Host {
     public class Startup {
@@ -52,17 +50,19 @@ namespace Host {
                 options.ProductValue = "rigofunc";
             });
 
-            // add account service
-            services.AddScoped<IAccountService, AccountService<AppUser, int>>();
-
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
 
             var builder = services.AddIdentityServer()
                 .SetSigningCredentials(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
+                .AddCustomGrantValidator<CustomGrantValidator>()
                 .UseAspNetCoreIdentity<AppUser, int>()
-                .AddCustomGrantValidator<CustomGrantValidator>();
+                .UseAccountApi<AppUser, int>(options => {
+                    options.DefaultClientId = "system";
+                    options.DefaultClientSecret = "secret";
+                    options.DefaultScope = "doctor order payment";
+                });
 
             // for the UI
             services

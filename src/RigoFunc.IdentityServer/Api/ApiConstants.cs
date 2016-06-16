@@ -1,6 +1,6 @@
 ﻿namespace RigoFunc.IdentityServer.Api {
-    public static class Constants {
-        public static readonly string[] ApiPaths = new string[] {
+    internal static class ApiConstants {
+        public static readonly string[] RoutePaths = new string[] {
             // can this by reflection rather than hard code?
             "api/account/register",
             "api/account/sendcode",
@@ -10,5 +10,9 @@
             "api/account/resetpassword",
             "api/account/update",
         };
+
+        public const string ClientId = "clientId";
+        public const string ClientSecret = "clientSecret";
+        public const string Scope = "scope";
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.Extensions.Logging;
+using RigoFunc.IdentityServer.Api;
 
 namespace RigoFunc.IdentityServer {
     public class IdentityCorsPolicyService : ICorsPolicyService {
@@ -11,9 +12,9 @@ namespace RigoFunc.IdentityServer {
 
         public IdentityCorsPolicyService(ILogger<IdentityCorsPolicyService> logger) {
             _logger = logger;
-            // TODO: configurable using appsetting.json
-            AllowAll = true;
-            AllowedOrigins = new HashSet<string>();
+
+            // allow Api route paths
+            AllowedOrigins = ApiConstants.RoutePaths;
         }
 
         /// <summary>
