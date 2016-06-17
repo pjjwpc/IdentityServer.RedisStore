@@ -85,7 +85,7 @@ namespace RigoFunc.IdentityServer.Api {
 
             _logger.LogError(result.ToString());
 
-            throw new InvalidOperationException("User login failed");
+            throw new InvalidOperationException($"User Name: {model.UserName} or Password: {model.Password} error.");
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace RigoFunc.IdentityServer.Api {
             }
 
             if (!await _userManager.VerifyChangePhoneNumberTokenAsync(user, model.Code, model.PhoneNumber)) {
-                throw new ArgumentException($"The code: {model.Code} is invalide or timeout with 3 minutes.");
+                throw new ArgumentException($"The code: {model.Code} is invalid or timeout with 3 minutes.");
             }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
