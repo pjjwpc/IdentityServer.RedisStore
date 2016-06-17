@@ -19,7 +19,7 @@ using RigoFunc.IdentityServer.Api;
 namespace RigoFunc.IdentityServer {
     public static class IIdentityServerBuilderExtensions {
         public static IIdentityServerBuilder UseAspNetCoreIdentity<TUser, TKey>(this IIdentityServerBuilder builder) 
-            where TUser : IdentityUser<TKey>, new() where TKey : IEquatable<TKey> {
+            where TUser : IdentityUser<TKey> where TKey : IEquatable<TKey> {
             var services = builder.Services;
 
             services.TryAddTransient<SignInManager<TUser>, IdentityServerSignInManager<TUser>>();
