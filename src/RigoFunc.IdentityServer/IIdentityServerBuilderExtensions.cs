@@ -50,8 +50,9 @@ namespace RigoFunc.IdentityServer {
             if (setupAction != null) {
                 services.Configure(setupAction);
             }
+            // try add default account service, or use the end-user DI in startup.cs
             services.TryAddTransient<IAccountService, AccountService<TUser, TKey>>();
-            services.TryAddTransient<ICorsPolicyService, IdentityCorsPolicyService>();
+            services.AddTransient<ICorsPolicyService, IdentityCorsPolicyService>();
 
             var paths = new List<string>(Constants.RoutePaths.CorsPaths);
 

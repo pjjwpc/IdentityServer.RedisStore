@@ -45,6 +45,7 @@ namespace RigoFunc.IdentityServer.Api {
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
+            _options = options.Value;
             _logger = loggerFactory.CreateLogger("AccountService"); ;
             _httpContext = contextAccessor.HttpContext;
         }
@@ -158,7 +159,18 @@ namespace RigoFunc.IdentityServer.Api {
 
             if (user != null) {
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
-                await _smsSender.SendSmsAsync(model.PhoneNumber, code);
+                SendSmsResult result;
+                if (string.IsNullOrWhiteSpace(_options.SendCodeTemplate)) {
+                    result = await _smsSender.SendSmsAsync(model.PhoneNumber, code);
+                }
+                else {
+                    result = await _smsSender.SendSmsAsync(_options.SendCodeTemplate, model.PhoneNumber, Tuple.Create("code", code));
+                }
+
+                if (!result.IsSuccessSend) {
+                    throw new ArgumentException($"cannot send code for the phone: {model.PhoneNumber}, error message: {result.ErrorMessage}");
+                }
+                
                 return true;
             }
             else {
@@ -206,7 +218,16 @@ namespace RigoFunc.IdentityServer.Api {
                 if (result.Succeeded) {
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    await _smsSender.SendSmsAsync(model.PhoneNumber, password);
+                    SendSmsResult smsResult;
+                    if (string.IsNullOrWhiteSpace(_options.SendPasswordTemplate)) {
+                        smsResult = await _smsSender.SendSmsAsync(model.PhoneNumber, password);
+                    }
+                    else {
+                        smsResult = await _smsSender.SendSmsAsync(_options.SendPasswordTemplate, model.PhoneNumber, Tuple.Create("password", password));
+                    }
+                    if (!smsResult.IsSuccessSend) {
+                        throw new ArgumentException($"cannot send password for the phone: {model.PhoneNumber}, error message: {smsResult.ErrorMessage}");
+                    }
 
                     _logger.LogInformation(3, "User changed their password successfully.");
 
