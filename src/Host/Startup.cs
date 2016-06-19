@@ -45,8 +45,8 @@ namespace Host {
 
             // Sms and email services
             services.AddSmsEmailService(options => {
-                options.SmsApiUrl = "http://www.xyting.org";
-                options.ProductName = "rigofunc";
+                options.SmsApiUrl = "http://service.xyting.org/api/message";
+                options.ProductName = "product";
                 options.ProductValue = "rigofunc";
             });
 
@@ -59,9 +59,12 @@ namespace Host {
                 .AddCustomGrantValidator<CustomGrantValidator>()
                 .UseAspNetCoreIdentity<AppUser, int>()
                 .UseAccountApi<AppUser, int>(options => {
+                    options.AllowAnyOrigin = true;
                     options.DefaultClientId = "system";
                     options.DefaultClientSecret = "secret";
-                    options.DefaultScope = "doctor order payment";
+                    options.DefaultScope = "doctor consultant finance order payment";
+                    options.SendCodeTemplate = "SMS_5265397";
+                    options.SendPasswordTemplate = "SMS_5265397";
                 });
 
             // for the UI
