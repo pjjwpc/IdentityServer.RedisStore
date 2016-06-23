@@ -1,5 +1,5 @@
-﻿namespace RigoFunc.IdentityServer.Api {
-    public class SendCodeInputModel {
+﻿namespace RigoFunc.Account.Models {
+    public class SendCodeModel {
         /// <summary>
         /// 电话号码.
         /// </summary>

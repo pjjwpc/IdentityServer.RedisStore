@@ -1,4 +1,4 @@
-﻿namespace RigoFunc.IdentityServer.Api {
+﻿namespace RigoFunc.Account.Models {
     public class ChangePasswordModel {
         /// <summary>
         /// 用户名.

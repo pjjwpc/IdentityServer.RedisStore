@@ -1,5 +1,5 @@
-﻿namespace RigoFunc.IdentityServer.Api {
-    public class VerifyCodeInputModel {
+﻿namespace RigoFunc.Account.Models {
+    public class VerifyCodeModel {
         /// <summary>
         /// 电话号码.
         /// </summary>

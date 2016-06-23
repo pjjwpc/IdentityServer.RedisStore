@@ -8,10 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RigoFunc.IdentityServer {
+namespace RigoFunc.Account {
     using System;
     using System.Reflection;
-    
     
     /// <summary>
     ///    A strongly-typed resource class, for looking up localized strings, etc.
@@ -38,7 +37,7 @@ namespace RigoFunc.IdentityServer {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RigoFunc.IdentityServer.Resources", typeof(Resources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RigoFunc.Account.Resources", typeof(Resources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -105,7 +104,7 @@ namespace RigoFunc.IdentityServer {
         }
 
         /// <summary>
-        ///    Looks up a localized string similar to Phone Number [{0}] or Password [{1}] error.
+        ///    Looks up a localized string similar to Phone number or password error.
         /// </summary>
         internal static string PhoneNumberOrPasswordError {
             get {
@@ -123,11 +122,20 @@ namespace RigoFunc.IdentityServer {
         }
 
         /// <summary>
-        ///    Looks up a localized string similar to Failed to send code for the phone [{0}], error message [{1}].
+        ///    Looks up a localized string similar to Failed to send code to the phone [{0}], error message [{1}].
         /// </summary>
         internal static string SendCodeFailed {
             get {
                 return ResourceManager.GetString("SendCodeFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///    Looks up a localized string similar to Failed to send the initial password to the phone [{0}].
+        /// </summary>
+        internal static string SendPasswordFailed {
+            get {
+                return ResourceManager.GetString("SendPasswordFailed", resourceCulture);
             }
         }
 

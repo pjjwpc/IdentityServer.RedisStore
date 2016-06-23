@@ -1,4 +1,4 @@
-﻿namespace RigoFunc.IdentityServer.Api {
+﻿namespace RigoFunc.Account {
     internal static class ApiConstants {
         public static readonly string[] RoutePaths = new string[] {
             // can this by reflection rather than hard code?
@@ -9,6 +9,8 @@
             "api/account/changepassword",
             "api/account/resetpassword",
             "api/account/update",
+            "api/weixin/bind",
+            "api/weixin/login"
         };
 
         public const string ClientId = "clientId";

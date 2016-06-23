@@ -5,17 +5,20 @@ using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using RigoFunc.IdentityServer.Api;
 
-namespace RigoFunc.IdentityServer {
-    public class IdentityCorsPolicyService : ICorsPolicyService {
-        private readonly ILogger<IdentityCorsPolicyService> _logger;
-        public IdentityCorsPolicyService(ILogger<IdentityCorsPolicyService> logger, IOptions<AccountApiOptions> options) {
+namespace Host.Cors {
+    public class CorsPolicyService : ICorsPolicyService {
+        private readonly ILogger<CorsPolicyService> _logger;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorsPolicyService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        public CorsPolicyService(ILogger<CorsPolicyService> logger, IOptions<CorsOptions> options) {
             _logger = logger;
 
             var opt = options.Value;
             AllowAnyOrigin = opt.AllowAnyOrigin;
-            if(opt.AllowedOrigins != null) {
+            if (opt.AllowedOrigins != null) {
                 AllowedOrigins = new List<string>(opt.AllowedOrigins);
             }
         }

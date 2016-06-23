@@ -1,5 +1,9 @@
-﻿namespace RigoFunc.IdentityServer.Api {
-    public class ResetPasswordModel {
+﻿namespace RigoFunc.Account.Models {
+    public class RegisterModel {
+        /// <summary>
+        /// 用户名.
+        /// </summary>
+        public string UserName { get; set; }
         /// <summary>
         /// 密码.
         /// </summary>

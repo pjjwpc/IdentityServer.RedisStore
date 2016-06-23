@@ -13,12 +13,14 @@
     "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc2-final",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-rc2-final",
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview1-final",
       "type": "build"
     },
-    "RigoFunc.IdentityServer": "1.0.0-*"
+    "RigoFunc.IdentityServer": "1.0.0-*",
+    "RigoFunc.Account": "1.0.0-*"
   },
 
   "tools": {

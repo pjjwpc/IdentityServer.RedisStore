@@ -1,6 +1,6 @@
-﻿namespace RigoFunc.IdentityServer.Api {
+﻿namespace RigoFunc.Account {
     /// <summary>
-    /// Defines the interface for OAuth response.
+    /// Defines the interface for account Api response.
     /// </summary>
     public interface IResponse {
         /// <summary>
@@ -28,7 +28,6 @@
         /// </summary>
         /// <value>The type of the token.</value>
         string TokenType { get; }
-
         /// <summary>
         /// Gets a value indicating whether this instance is error.
         /// </summary>
