@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Host.Configuration;
+using Host.Cors;
 using Host.EntityFrameworkCore;
 using Host.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -45,23 +46,39 @@ namespace Host {
 
             // Sms and email services
             services.AddSmsEmailService(options => {
-                options.SmsApiUrl = "http://www.xyting.org";
-                options.ProductName = "rigofunc";
-                options.ProductValue = "rigofunc";
+                options.SmsApiUrl = Configuration["Services:SendSmsApiUlr"];
+                options.ProductName = "product";
+                options.ProductValue = "的的心理";
+            });
+
+            // configure the account api
+            services.ConfigureAccountApi<AppUser>(options => {
+                options.DefaultClientId = "system";
+                options.DefaultClientSecret = "secret";
+                options.DefaultScope = "doctor consultant finance order payment";
+                options.CodeSmsTemplate = "SMS_5265397";
+                options.PasswordSmsTemplate = "SMS_10655422";
             });
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
-
             var builder = services.AddIdentityServer()
                 .SetSigningCredentials(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
-                .UseAspNetCoreIdentity<AppUser, int>()
-                .UseAccountApi<AppUser, int>(options => {
-                    options.DefaultClientId = "system";
-                    options.DefaultClientSecret = "secret";
-                    options.DefaultScope = "doctor order payment";
+                .ConfigureAspNetCoreIdentity<AppUser>()
+                .FixCorsIssues(options => {
+                    options.AllowAnyOrigin = true;
+                }, new string[] {
+                    "api/account/register",
+                    "api/account/sendcode",
+                    "api/account/login",
+                    "api/account/verifycode",
+                    "api/account/changepassword",
+                    "api/account/resetpassword",
+                    "api/account/update",
+                    "api/weixin/bind",
+                    "api/weixin/login"
                 });
 
             // for the UI

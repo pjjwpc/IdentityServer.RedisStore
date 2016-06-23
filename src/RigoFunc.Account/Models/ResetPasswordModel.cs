@@ -1,9 +1,5 @@
-﻿namespace RigoFunc.IdentityServer.Api {
-    public class RegisterInputModel {
-        /// <summary>
-        /// 用户名.
-        /// </summary>
-        public string UserName { get; set; }
+﻿namespace RigoFunc.Account.Models {
+    public class ResetPasswordModel {
         /// <summary>
         /// 密码.
         /// </summary>

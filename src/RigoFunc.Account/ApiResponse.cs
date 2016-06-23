@@ -1,6 +1,6 @@
 ﻿using IdentityModel.Client;
 
-namespace RigoFunc.IdentityServer.Api {
+namespace RigoFunc.Account {
     /// <summary>
     /// Represents the default implementation of the <see cref="IResponse"/> interface.
     /// </summary>
@@ -66,14 +66,14 @@ namespace RigoFunc.IdentityServer.Api {
         /// Creates an <see cref="IResponse"/> from the specified token response.
         /// </summary>
         /// <param name="response">The token response.</param>
-        /// <returns>A <see cref="IResponse"/> indicating a OAuth response.</returns>
+        /// <returns>A <see cref="IResponse"/> indicating a account Api response.</returns>
         public static IResponse FromTokenResponse(TokenResponse response) => new ApiResponse(response);
 
         /// <summary>
-        /// Creates an <see cref="IResponse"/> indicating a failed OAuth response, with a <paramref name="error"/> if applicable.
+        /// Creates an <see cref="IResponse"/> indicating a failed account Api response, with a <paramref name="error"/> if applicable.
         /// </summary>
         /// <param name="error">The error.</param>
-        /// <returns>A <see cref="IResponse"/> indicating a failed OAuth response.</returns>
+        /// <returns>A <see cref="IResponse"/> indicating a failed account Api response.</returns>
         public static IResponse Failed(string error) => new ApiResponse(error);
     }
 }

@@ -15,6 +15,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RigoFunc.IdentityServer", "
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Host", "src\Host\Host.xproj", "{784B3C88-30FA-415D-B99E-584063064508}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RigoFunc.Account", "src\RigoFunc.Account\RigoFunc.Account.xproj", "{603226F2-3037-4990-8C9A-B0990B811ECD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{784B3C88-30FA-415D-B99E-584063064508}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{784B3C88-30FA-415D-B99E-584063064508}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{784B3C88-30FA-415D-B99E-584063064508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603226F2-3037-4990-8C9A-B0990B811ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603226F2-3037-4990-8C9A-B0990B811ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603226F2-3037-4990-8C9A-B0990B811ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603226F2-3037-4990-8C9A-B0990B811ECD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,5 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{59D63571-C4C2-4DAA-AAC6-969F581DC1FA} = {20804C46-0E17-464C-A5FD-F447F9DF7DAF}
 		{784B3C88-30FA-415D-B99E-584063064508} = {20804C46-0E17-464C-A5FD-F447F9DF7DAF}
+		{603226F2-3037-4990-8C9A-B0990B811ECD} = {20804C46-0E17-464C-A5FD-F447F9DF7DAF}
 	EndGlobalSection
 EndGlobal

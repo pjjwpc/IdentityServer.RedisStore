@@ -1,22 +1,34 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using RigoFunc.Account.Models;
+using RigoFunc.Account.Services;
 using RigoFunc.OAuth;
 
-namespace RigoFunc.IdentityServer.Api {
+namespace RigoFunc.Account {
     [Route("api/[controller]")]
     public class AccountController {
         private readonly IAccountService _service;
-        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(IAccountService service, ILogger<AccountController> logger) {
+        public AccountController(IAccountService service) {
             _service = service;
-            _logger = logger;
+        }
+
+        [HttpGet]
+        public async Task<OAuthUser> Get([FromQuery]FindUserModel model) {
+            if (model == null) {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (model.Id == null && string.IsNullOrEmpty(model.PhoneNumber)) {
+                throw new ArgumentException("must provide user id or phone number. e.g. ?userId=111&phonenumber=phone");
+            }
+
+            return await _service.GetAsync(model);
         }
 
         [HttpPost("[action]")]
-        public async Task<IResponse> Register([FromBody]RegisterInputModel model) {
+        public async Task<IResponse> Register([FromBody]RegisterModel model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -25,7 +37,7 @@ namespace RigoFunc.IdentityServer.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<bool> SendCode([FromBody]SendCodeInputModel model) {
+        public async Task<bool> SendCode([FromBody]SendCodeModel model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -34,7 +46,7 @@ namespace RigoFunc.IdentityServer.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<IResponse> Login([FromBody]LoginInputModel model) {
+        public async Task<IResponse> Login([FromBody]LoginModel model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -43,7 +55,7 @@ namespace RigoFunc.IdentityServer.Api {
         }
 
         [HttpPost("[action]")]
-        public async Task<IResponse> VerifyCode([FromBody]VerifyCodeInputModel model) {
+        public async Task<IResponse> VerifyCode([FromBody]VerifyCodeModel model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
             }

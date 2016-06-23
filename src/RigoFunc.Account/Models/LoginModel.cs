@@ -1,5 +1,5 @@
-﻿namespace RigoFunc.IdentityServer.Api {
-    public class LoginInputModel {
+﻿namespace RigoFunc.Account.Models {
+    public class LoginModel {
         /// <summary>
         /// 用户名.
         /// </summary>

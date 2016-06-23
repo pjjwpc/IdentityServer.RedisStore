@@ -118,43 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LoginFailedWithCodeAndPhone" xml:space="preserve">
-    <value>验证码[{0}]手机号[{1}]登陆失败</value>
+    <value>Failed login with code [{0}] and phone number [{1}]</value>
     <comment>login failed with code and phone</comment>
   </data>
   <data name="NotFoundUserById" xml:space="preserve">
-    <value>无法通过用户编号[{0}]}找到用户</value>
+    <value>Cannot found the user by id [{0}]</value>
     <comment>user not found by id</comment>
   </data>
   <data name="NotFoundUserByPhoneNumber" xml:space="preserve">
-    <value>无法通过手机号[{0}]找到用户</value>
+    <value>Cannot found the user by phone number [{0}]</value>
     <comment>user not found by phone</comment>
   </data>
   <data name="PasswordResetFailed" xml:space="preserve">
-    <value>用户[{0}]重置密码失败</value>
+    <value>Failed to reset the password for user [{0}]</value>
     <comment>reset password error</comment>
   </data>
   <data name="PhoneNumberHadBeenRegister" xml:space="preserve">
-    <value>手机号[{0}]已经被注册</value>
+    <value>The phone number [{0}] had been register</value>
     <comment>phone number had been register</comment>
   </data>
   <data name="PhoneNumberOrPasswordError" xml:space="preserve">
-    <value>用户名[{0}]或密码[{1}]错误</value>
+    <value>Phone number or password error</value>
     <comment>user name or password error</comment>
   </data>
   <data name="RegisterNewUserFailed" xml:space="preserve">
-    <value>注册新用户失败，手机号[{0}]验证码[{1}]</value>
+    <value>Cannot to register new user with phone [{0}] code [{1}]</value>
     <comment>user register failed</comment>
   </data>
   <data name="SendCodeFailed" xml:space="preserve">
-    <value>发送验证码至手机号[{0}]失败，错误信息[{1}]</value>
+    <value>Failed to send code to the phone [{0}], error message [{1}]</value>
     <comment>send code failed</comment>
   </data>
+  <data name="SendPasswordFailed" xml:space="preserve">
+    <value>Failed to send the initial password to the phone [{0}]</value>
+    <comment>send password failed</comment>
+  </data>
   <data name="UpdateUserFailed" xml:space="preserve">
-    <value>用户更新失败</value>
+    <value>Failed to update user</value>
     <comment>update user failed</comment>
   </data>
   <data name="VerifyCodeFailed" xml:space="preserve">
-    <value>验证码[{0}]无效或3分钟超时</value>
+    <value>The code [{0}] is invalid or timeout with 3 minutes</value>
     <comment>verify code failed</comment>
   </data>
 </root>
