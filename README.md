@@ -1,6 +1,11 @@
 # RigoFunc.IdentityServer
-This repo contains the plugin for IdentityServer v4 that uses ASP.NET Core Identity as its identity management library."
+This repo contains the library integrate IdentityServer and Asp.Net Core Identity.
+
+[![Join the chat at https://gitter.im/xyting/RigoFunc.IdentityServer](https://badges.gitter.im/xyting/RigoFunc.IdentityServer.svg)](https://gitter.im/xyting/RigoFunc.IdentityServer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/lotosbin/RigoFunc.IdentityServer.svg?branch=master)](https://travis-ci.org/lotosbin/RigoFunc.IdentityServer)
 
 # Wiki
 https://github.com/xyting/RigoFunc.IdentityServer/wiki
+
+# OAuth Client
+https://github.com/xyting/RigoFunc.OAuth
