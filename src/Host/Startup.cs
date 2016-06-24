@@ -51,8 +51,8 @@ namespace Host {
                 options.ProductValue = "的的心理";
             });
 
-            // configure the account api
-            services.ConfigureAccountApi<AppUser>(options => {
+            // Use RigoFunc.Account default account service.
+            services.UseDefaultAccountService<AppUser>(options => {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
@@ -67,6 +67,7 @@ namespace Host {
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
                 .ConfigureAspNetCoreIdentity<AppUser>()
+                // what a fuck solution
                 .FixCorsIssues(options => {
                     options.AllowAnyOrigin = true;
                 }, new string[] {
