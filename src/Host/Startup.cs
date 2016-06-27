@@ -47,8 +47,7 @@ namespace Host {
             // Sms and email services
             services.AddSmsEmailService(options => {
                 options.SmsApiUrl = Configuration["Services:SendSmsApiUlr"];
-                options.ProductName = "product";
-                options.ProductValue = "的的心理";
+                options.EmailApiUrl = Configuration["Services:SendEmailApiUlr"];
             });
 
             // Use RigoFunc.Account default account service.
@@ -71,6 +70,7 @@ namespace Host {
                 .FixCorsIssues(options => {
                     options.AllowAnyOrigin = true;
                 }, new string[] {
+                    "api/account/lockout",
                     "api/account/register",
                     "api/account/sendcode",
                     "api/account/login",

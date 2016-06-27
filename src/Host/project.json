@@ -19,7 +19,7 @@
       "version": "1.0.0-preview1-final",
       "type": "build"
     },
-    "RigoFunc.Account": "1.0.2",
+    "RigoFunc.Account": "1.0.3",
     "RigoFunc.IdentityServer": "1.0.0-*"
   },
 
