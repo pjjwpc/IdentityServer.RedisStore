@@ -47,12 +47,11 @@ namespace Host {
             // Sms and email services
             services.AddSmsEmailService(options => {
                 options.SmsApiUrl = Configuration["Services:SendSmsApiUlr"];
-                options.ProductName = "product";
-                options.ProductValue = "的的心理";
+                options.EmailApiUrl = Configuration["Services:SendEmailApiUlr"];
             });
 
-            // configure the account api
-            services.ConfigureAccountApi<AppUser>(options => {
+            // Use RigoFunc.Account default account service.
+            services.UseDefaultAccountService<AppUser>(options => {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
@@ -67,9 +66,11 @@ namespace Host {
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
                 .ConfigureAspNetCoreIdentity<AppUser>()
+                // what a fuck solution
                 .FixCorsIssues(options => {
                     options.AllowAnyOrigin = true;
                 }, new string[] {
+                    "api/account/lockout",
                     "api/account/register",
                     "api/account/sendcode",
                     "api/account/login",
