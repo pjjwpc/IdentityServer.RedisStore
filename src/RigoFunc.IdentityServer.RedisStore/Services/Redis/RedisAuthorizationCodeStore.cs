@@ -12,7 +12,7 @@ namespace RigoFunc.IdentityServer.Services.Redis {
         private readonly IDatabase _db;
 
         public RedisAuthorizationCodeStore(IClientStore clientStore, IScopeStore scopeStore, RedisStoreOptions options)
-            : this(clientStore, scopeStore, options.config, options.db) {
+            : this(clientStore, scopeStore, options.Configuration, options.Db) {
 
         }
 

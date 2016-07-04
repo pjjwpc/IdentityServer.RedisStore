@@ -11,7 +11,7 @@ namespace RigoFunc.IdentityServer.Services.Redis {
     public class RedisRefreshTokenStore : BaseTokenStore<RefreshToken>, IRefreshTokenStore {
         private readonly IDatabase _db;
         public RedisRefreshTokenStore(IClientStore clientStore, IScopeStore scopeStore, RedisStoreOptions options)
-            : this(clientStore, scopeStore, options.config, options.db) {
+            : this(clientStore, scopeStore, options.Configuration, options.Db) {
 
         }
 
