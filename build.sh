@@ -1,3 +1,5 @@
+#!/bin/bash
+
 dotnet restore
 dotnet build ./src/Host
 dotnet build ./src/RigoFunc.IdentityServer.RedisStore
