@@ -1,4 +1,5 @@
-﻿using IdentityModel;
+﻿using System;
+using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Services;
@@ -46,7 +47,11 @@ namespace RigoFunc.IdentityServer {
 
             return builder;
         }
-        public static IServiceCollection AddRedisTransientStores(this IServiceCollection services) {
+        public static IServiceCollection AddRedisTransientStores(this IServiceCollection services, Action<RedisStoreOptions> options) {
+            var redisStoreOptions = new RedisStoreOptions();
+            options?.Invoke(redisStoreOptions);
+
+            services.TryAddSingleton(redisStoreOptions);
             services.TryAddSingleton<IAuthorizationCodeStore, RedisAuthorizationCodeStore>();
             services.TryAddSingleton<IRefreshTokenStore, RedisRefreshTokenStore>();
             services.TryAddSingleton<ITokenHandleStore, RedisTokenHandleStore>();

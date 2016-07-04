@@ -11,7 +11,12 @@ namespace RigoFunc.IdentityServer.Services.Redis {
     public class RedisTokenHandleStore : BaseTokenStore<Token>, ITokenHandleStore {
         private readonly IDatabase _db;
 
-        public RedisTokenHandleStore(IClientStore clientStore, IScopeStore scopeStore, string config, int db = 0) : base(clientStore, scopeStore) {
+        public RedisTokenHandleStore(IClientStore clientStore, IScopeStore scopeStore, RedisStoreOptions options)
+            : this(clientStore, scopeStore, options.config, options.db) {
+
+        }
+
+        internal RedisTokenHandleStore(IClientStore clientStore, IScopeStore scopeStore, string config, int db = 0) : base(clientStore, scopeStore) {
             var connectionMultiplexer = RedisConnectionMultiplexerStore.GetConnectionMultiplexer(config);
             _db = connectionMultiplexer.GetDatabase(db);
         }

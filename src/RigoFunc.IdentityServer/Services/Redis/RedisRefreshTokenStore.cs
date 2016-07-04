@@ -10,7 +10,12 @@ using StackExchange.Redis;
 namespace RigoFunc.IdentityServer.Services.Redis {
     public class RedisRefreshTokenStore : BaseTokenStore<RefreshToken>, IRefreshTokenStore {
         private readonly IDatabase _db;
-        public RedisRefreshTokenStore(IClientStore clientStore, IScopeStore scopeStore, string config, int db = 0) : base(clientStore, scopeStore) {
+        public RedisRefreshTokenStore(IClientStore clientStore, IScopeStore scopeStore, RedisStoreOptions options)
+            : this(clientStore, scopeStore, options.config, options.db) {
+
+        }
+
+        internal RedisRefreshTokenStore(IClientStore clientStore, IScopeStore scopeStore, string config, int db = 0) : base(clientStore, scopeStore) {
             var connectionMultiplexer = RedisConnectionMultiplexerStore.GetConnectionMultiplexer(config);
             _db = connectionMultiplexer.GetDatabase(db);
         }
