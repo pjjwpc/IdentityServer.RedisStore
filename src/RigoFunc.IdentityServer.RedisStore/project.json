@@ -1,6 +1,21 @@
 {
   "version": "1.0.0-*",
-
+  "description": "use redis to store IdentityServer 4 tokens",
+  "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
+  "packOptions": {
+    "projectUrl": "https://github.com/xyting/RigoFunc.IdentityServer",
+    "licenseUrl": "",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/xyting/RigoFunc.IdentityServer.git"
+    },
+    "tags": [
+      "IdentityServer",
+      "Identity",
+      "Redis",
+      "Token"
+    ]
+  },
   "dependencies": {
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
     "NETStandard.Library": "1.6.0",
