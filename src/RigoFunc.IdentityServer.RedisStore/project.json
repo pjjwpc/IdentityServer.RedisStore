@@ -1,6 +1,6 @@
 {
   "version": "1.0.0-*",
-  "description": "A plugin for IdentityServer v4 that uses ASP.NET Core Identity as its identity management library.",
+  "description": "use redis to store IdentityServer 4 tokens",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
     "projectUrl": "https://github.com/xyting/RigoFunc.IdentityServer",
@@ -11,21 +11,21 @@
     },
     "tags": [
       "IdentityServer",
-      "Identity"
+      "Identity",
+      "Redis",
+      "Token"
     ]
   },
-  "buildOptions": {
-    "optimize": true,
-    "xmlDoc": true
-  },
   "dependencies": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
     "NETStandard.Library": "1.6.0",
-    "Microsoft.AspNetCore.Identity": "1.0.0",
-    "IdentityServer4": "1.0.0-beta4-update1"
+    "IdentityServer4": "1.0.0-beta4-update1",
+    "StackExchange.Redis": "1.1.604-alpha"
   },
 
   "frameworks": {
-    "netstandard1.5": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
     }
   }
 }
