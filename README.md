@@ -20,7 +20,7 @@ https://github.com/xyting/RigoFunc.OAuth
 
 ## Usage
 ```
-services.AddRedisTransientStores(options=>{
+var builder = services.AddIdentityServer().AddRedisTransientStores(options=>{
 	options.config = "localhost";
 	options.db = 0;
 });
