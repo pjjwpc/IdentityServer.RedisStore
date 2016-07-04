@@ -47,7 +47,7 @@ namespace RigoFunc.IdentityServer {
 
             return builder;
         }
-        public static IServiceCollection AddRedisTransientStores(this IServiceCollection services, Action<RedisStoreOptions> options) {
+        public static IServiceCollection AddRedisTransientStores(this IServiceCollection services, Action<RedisStoreOptions> options = null) {
             var redisStoreOptions = new RedisStoreOptions();
             options?.Invoke(redisStoreOptions);
 
