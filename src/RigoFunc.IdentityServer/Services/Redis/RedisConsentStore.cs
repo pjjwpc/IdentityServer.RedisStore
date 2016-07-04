@@ -18,16 +18,22 @@ namespace RigoFunc.IdentityServer.Services.Redis {
             throw new NotImplementedException();
         }
 
-        public Task RevokeAsync(string subject, string client) {
-            throw new NotImplementedException();
+        public async Task RevokeAsync(string subject, string client) {
+            string key = $"{subject}_{client}";
+            await _db.KeyDeleteAsync(key);
         }
 
-        public Task<Consent> LoadAsync(string subject, string client) {
-            throw new NotImplementedException();
+        public async Task<Consent> LoadAsync(string subject, string client) {
+            string key = $"{subject}_{client}";
+            var json = await _db.StringGetAsync(key);
+            var token = FromJson(json);
+            return token;
         }
 
-        public Task UpdateAsync(Consent consent) {
-            throw new NotImplementedException();
+        public async Task UpdateAsync(Consent consent) {
+            string key = $"{consent.Subject}_{consent.ClientId}";
+            var json = ToJson(consent);
+            await _db.StringSetAsync(key, json);
         }
     }
 }
