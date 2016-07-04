@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using RigoFunc.IdentityServer.Services.Redis;
 
 namespace RigoFunc.IdentityServer {
     /// <summary>
@@ -44,5 +46,13 @@ namespace RigoFunc.IdentityServer {
 
             return builder;
         }
+        public static IServiceCollection AddRedisTransientStores(this IServiceCollection services) {
+            services.TryAddSingleton<IAuthorizationCodeStore, RedisAuthorizationCodeStore>();
+            services.TryAddSingleton<IRefreshTokenStore, RedisRefreshTokenStore>();
+            services.TryAddSingleton<ITokenHandleStore, RedisTokenHandleStore>();
+            services.TryAddSingleton<IConsentStore, RedisConsentStore>();
+            return services;
+        }
+
     }
 }
