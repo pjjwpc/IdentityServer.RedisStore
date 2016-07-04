@@ -1,7 +1,9 @@
 ﻿{
   "version": "1.0.0-*",
   "testRunner": "xunit",
-
+  "runtimes": {
+    "win10-x64": {}
+  },
   "dependencies": {
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
     "NETStandard.Library": "1.6.0",
