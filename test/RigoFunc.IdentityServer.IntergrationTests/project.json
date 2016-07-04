@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "testRunner": "xunit",
   "runtimes": {
@@ -8,6 +8,7 @@
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
     "NETStandard.Library": "1.6.0",
     "RigoFunc.IdentityServer": "1.0.0-*",
+    "RigoFunc.IdentityServer.RedisStore": "1.0.0-*",
     "xunit": "2.1.0"
   },
 
