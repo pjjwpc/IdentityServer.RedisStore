@@ -61,7 +61,7 @@ namespace Host {
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
             var builder = services.AddIdentityServer()
-                .SetSigningCredentials(cert)
+                .SetSigningCredential(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
