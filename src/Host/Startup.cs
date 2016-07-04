@@ -55,13 +55,13 @@ namespace Host {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SMS_5265397";
-                options.PasswordSmsTemplate = "SMS_10655422";
+                options.CodeSmsTemplate = "SMS_11071085";
+                options.PasswordSmsTemplate = "SMS_11026332";
             });
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
             var builder = services.AddIdentityServer()
-                .SetSigningCredentials(cert)
+                .SetSigningCredential(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
