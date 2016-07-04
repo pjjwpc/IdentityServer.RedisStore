@@ -13,3 +13,15 @@ https://github.com/xyting/RigoFunc.IdentityServer/wiki
 
 # OAuth Client
 https://github.com/xyting/RigoFunc.OAuth
+
+
+# Token Redis Store
+- ref https://github.com/kylesonaty/IdentityServer3.Contrib.Store.Redis
+
+## Usage
+```
+services.AddRedisTransientStores(options=>{
+	options.config = "localhost";
+	options.db = 0;
+});
+```
