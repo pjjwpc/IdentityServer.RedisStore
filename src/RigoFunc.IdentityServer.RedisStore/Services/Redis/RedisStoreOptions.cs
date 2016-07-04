@@ -1,11 +1,11 @@
 ﻿namespace RigoFunc.IdentityServer.Services.Redis {
     public class RedisStoreOptions {
-        public string config { get; set; }
-        public int db { get; set; }
+        public string Configuration { get; set; }
+        public int Db { get; set; }
 
         public RedisStoreOptions(string config = "localhost", int db = 0) {
-            this.config = config;
-            this.db = db;
+            Configuration = config;
+            Db = db;
         }
     }
 }
