@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
@@ -20,7 +20,8 @@
       "type": "build"
     },
     "RigoFunc.Account": "1.0.4",
-    "RigoFunc.IdentityServer": "1.1.1"
+    "RigoFunc.IdentityServer": "1.1.1",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0"
   },
 
   "tools": {
