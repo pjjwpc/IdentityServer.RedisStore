@@ -15,13 +15,14 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "Microsoft.Extensions.Caching.SqlServer": "1.0.0",
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
     "RigoFunc.Account": "1.0.4",
-    "RigoFunc.IdentityServer": "1.1.1",
-    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0"
+    "RigoFunc.IdentityServer": "1.0.0-*",
+    "RigoFunc.IdentityServer.DistributedStore": "1.0.0-*"
   },
 
   "tools": {
