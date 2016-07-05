@@ -55,8 +55,14 @@ namespace Host {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SMS_11071085";
-                options.PasswordSmsTemplate = "SMS_11026332";
+                options.CodeSmsTemplate = "SmsTemplate";
+                options.PasswordSmsTemplate = "PassTemplate";
+            });
+
+            services.AddDistributedSqlServerCache(options => {
+                options.ConnectionString = Configuration["Data:Default:ConnectionString"];
+                options.SchemaName = "dbo";
+                options.TableName = "TokenCache";
             });
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
@@ -65,6 +71,7 @@ namespace Host {
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
+                .AddDistributedStores()
                 .ConfigureAspNetCoreIdentity<AppUser>()
                 // what a fuck solution
                 .FixCorsIssues(options => {
