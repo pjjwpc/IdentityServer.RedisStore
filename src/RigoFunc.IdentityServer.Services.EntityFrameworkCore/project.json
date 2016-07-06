@@ -1,7 +1,19 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.0.1-*",
   "description": "implement IScopeStore,IClientStore with entityframeworkcore",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
+  "packOptions": {
+    "projectUrl": "https://github.com/xyting/RigoFunc.IdentityServer",
+    "licenseUrl": "",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/xyting/RigoFunc.IdentityServer.git"
+    },
+    "tags": [
+      "IdentityServer",
+      "EntityFrameworkCore"
+    ]
+  },
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
