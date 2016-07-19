@@ -34,6 +34,29 @@ namespace Host.Configuration
                     AccessTokenType = AccessTokenType.Reference
                 },
 
+                new Client
+                {
+                    ClientId = "admin",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+                    AllowedScopes = new List<string>
+                    {
+                        StandardScopes.OpenId.Name,
+                        StandardScopes.Profile.Name,
+                        StandardScopes.Email.Name,
+                        StandardScopes.Roles.Name,
+                        StandardScopes.OfflineAccess.Name,
+                        "doctor", "consultant", "finance", "order", "payment"
+                    },
+
+                    AccessTokenType = AccessTokenType.Jwt
+                },
+
                 ///////////////////////////////////////////
                 // Console Client Credentials Flow Sample
                 //////////////////////////////////////////

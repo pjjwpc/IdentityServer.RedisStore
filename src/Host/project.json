@@ -20,7 +20,8 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "RigoFunc.Account": "1.0.4",
+    "RigoFunc.Account": "1.0.7",
+    "RigoFunc.ApiCore": "1.1.4",
     "RigoFunc.IdentityServer": "1.0.0-*",
     "RigoFunc.IdentityServer.DistributedStore": "1.0.0-*"
   },

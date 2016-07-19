@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Host.Configuration;
 using Host.Cors;
@@ -44,10 +45,16 @@ namespace Host {
             .AddEntityFrameworkStores<AppDbContext, int>()
             .AddDefaultTokenProviders();
 
-            // Sms and email services
-            services.AddSmsEmailService(options => {
-                options.SmsApiUrl = Configuration["Services:SendSmsApiUlr"];
-                options.EmailApiUrl = Configuration["Services:SendEmailApiUlr"];
+            // Add API invoker services
+            services.AddApiInvoker(options => {
+                options.SmsApiUrl = Configuration["ApiUrls:Sms"];
+                options.EmailApiUrl = Configuration["ApiUrls:Email"];
+                options.AppPushApiUrl = Configuration["ApiUrls:AppPush"];
+                options.HeaderRetriever = (url) => {
+                    return new[] {
+                        new Tuple<string, string>("xunit", "59d63571-c4c2-4daa-aac6-969f581dc1fa")
+                    };
+                };
             });
 
             // Use RigoFunc.Account default account service.
@@ -55,8 +62,8 @@ namespace Host {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SmsTemplate";
-                options.PasswordSmsTemplate = "PassTemplate";
+                options.CodeSmsTemplate = "SMS_1101";
+                options.PasswordSmsTemplate = "SMS_1102";
             });
 
             services.AddDistributedSqlServerCache(options => {

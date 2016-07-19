@@ -4,29 +4,22 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RigoFunc.ApiCore.Services;
 using Host.EntityFrameworkCore;
 
 namespace Host.UI.Login {
     public class LoginController : Controller {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
         private readonly ILogger<LoginController> _logger;
         private readonly SignInInteraction _signInInteraction;
 
         public LoginController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IEmailSender emailSender,
-            ISmsSender smsSender,
             ILogger<LoginController> logger,
             SignInInteraction signInInteraction) {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
             _logger = logger;
             _signInInteraction = signInInteraction;
         }
