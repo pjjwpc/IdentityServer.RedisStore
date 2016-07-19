@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Host.Configuration;
 using Host.Cors;
@@ -49,6 +50,11 @@ namespace Host {
                 options.SmsApiUrl = Configuration["ApiUrls:Sms"];
                 options.EmailApiUrl = Configuration["ApiUrls:Email"];
                 options.AppPushApiUrl = Configuration["ApiUrls:AppPush"];
+                options.HeaderRetriever = (url) => {
+                    return new[] {
+                        new Tuple<string, string>("xunit", "59d63571-c4c2-4daa-aac6-969f581dc1fa")
+                    };
+                };
             });
 
             // Use RigoFunc.Account default account service.
