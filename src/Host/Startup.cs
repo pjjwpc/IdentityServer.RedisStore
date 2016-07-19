@@ -44,10 +44,11 @@ namespace Host {
             .AddEntityFrameworkStores<AppDbContext, int>()
             .AddDefaultTokenProviders();
 
-            // Sms and email services
+            // Add API invoker services
             services.AddApiInvoker(options => {
-                options.SmsApiUrl = Configuration["Services:SendSmsApiUlr"];
-                options.EmailApiUrl = Configuration["Services:SendEmailApiUlr"];
+                options.SmsApiUrl = Configuration["ApiUrls:Sms"];
+                options.EmailApiUrl = Configuration["ApiUrls:Email"];
+                options.AppPushApiUrl = Configuration["ApiUrls:AppPush"];
             });
 
             // Use RigoFunc.Account default account service.
@@ -55,8 +56,8 @@ namespace Host {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SMS_Tempalte";
-                options.PasswordSmsTemplate = "Pass_Template";
+                options.CodeSmsTemplate = "SMS_1101";
+                options.PasswordSmsTemplate = "SMS_1102";
             });
 
             services.AddDistributedSqlServerCache(options => {
