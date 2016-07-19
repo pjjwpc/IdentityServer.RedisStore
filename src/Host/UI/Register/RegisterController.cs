@@ -3,27 +3,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RigoFunc.ApiCore.Services;
 using Host.EntityFrameworkCore;
 
 namespace Host.UI.Register {
     public class RegisterController : Controller {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
         private readonly ILogger<RegisterController> _logger;
 
         public RegisterController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IEmailSender emailSender,
-            ISmsSender smsSender,
             ILogger<RegisterController> logger) {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
             _logger = logger;
         }
 

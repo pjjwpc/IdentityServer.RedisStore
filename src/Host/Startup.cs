@@ -45,7 +45,7 @@ namespace Host {
             .AddDefaultTokenProviders();
 
             // Sms and email services
-            services.AddSmsEmailService(options => {
+            services.AddApiInvoker(options => {
                 options.SmsApiUrl = Configuration["Services:SendSmsApiUlr"];
                 options.EmailApiUrl = Configuration["Services:SendEmailApiUlr"];
             });
@@ -55,8 +55,8 @@ namespace Host {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SmsTemplate";
-                options.PasswordSmsTemplate = "PassTemplate";
+                options.CodeSmsTemplate = "SMS_Tempalte";
+                options.PasswordSmsTemplate = "Pass_Template";
             });
 
             services.AddDistributedSqlServerCache(options => {
