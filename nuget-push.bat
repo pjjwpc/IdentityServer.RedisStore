@@ -1,1 +1,1 @@
-nuget push %1 -source nuget -apikey %NUGET_API_KEY%
+Powershell.exe -executionpolicy remotesigned -File nuget-push.ps1
