@@ -68,7 +68,7 @@ namespace RigoFunc.IdentityServer {
             // Review: should we guard against CreateUserPrincipal returning null?
             userPrincipal.Identities.First().AddClaims(new[]
             {
-                new Claim(JwtClaimTypes.IdentityProvider, authenticationMethod ?? Constants.BuiltInIdentityProvider),
+                new Claim(JwtClaimTypes.IdentityProvider, authenticationMethod ?? Constants.DefaultCookieAuthenticationScheme),
                 new Claim(JwtClaimTypes.AuthenticationTime, DateTime.UtcNow.ToEpochTime().ToString())
             });
 

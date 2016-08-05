@@ -19,14 +19,13 @@
     "NETStandard.Library": "1.6.0",
     "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
     "Microsoft.EntityFrameworkCore": "1.0.0",
-    "IdentityServer4": "1.0.0-beta4-update1",
+    "IdentityServer4": "1.0.0-beta5",
     "System.Linq": "4.1.0",
     "System.Linq.Queryable": "4.0.1"
   },
 
   "frameworks": {
     "netstandard1.6": {
-      "imports": "dnxcore50"
     }
   }
 }

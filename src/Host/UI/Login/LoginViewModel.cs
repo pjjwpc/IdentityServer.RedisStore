@@ -7,7 +7,7 @@
             UserName = other.UserName;
             Password = other.Password;
             RememberMe = other.RememberMe;
-            SignInId = other.SignInId;
+            ReturnUrl = other.ReturnUrl;
         }
 
         public string ErrorMessage { get; set; }

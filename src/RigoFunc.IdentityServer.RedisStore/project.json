@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "NETStandard.Library": "1.6.0",
-    "IdentityServer4": "1.0.0-beta4-update1",
+    "IdentityServer4": "1.0.0-beta5",
     "StackExchange.Redis": "1.1.604-alpha"
   },
 

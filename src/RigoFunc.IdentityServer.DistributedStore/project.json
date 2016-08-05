@@ -21,7 +21,7 @@
     "NETStandard.Library": "1.6.0",
     "Microsoft.AspNetCore.DataProtection": "1.0.0",
     "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
-    "IdentityServer4": "1.0.0-beta4-update1"
+    "IdentityServer4": "1.0.0-beta5"
   },
 
   "frameworks": {

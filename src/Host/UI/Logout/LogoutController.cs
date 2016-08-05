@@ -4,33 +4,32 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Host.UI.Logout
-{
-    public class LogoutController : Controller
-    {
-        private readonly SignOutInteraction _signOutInteraction;
+namespace Host.UI.Logout {
+    public class LogoutController : Controller {
+        private readonly IUserInteractionService _interaction;
 
-        public LogoutController(SignOutInteraction signOutInteraction)
-        {
-            _signOutInteraction = signOutInteraction;
+        public LogoutController(IUserInteractionService interaction) {
+            _interaction = interaction;
         }
 
-        [HttpGet(Constants.RoutePaths.Logout, Name = "Logout")]
-        public IActionResult Index(string id)
-        {
-            return View(new LogoutViewModel { SignOutId = id });
+        [HttpGet("ui/logout", Name = "Logout")]
+        public IActionResult Index(string logoutId) {
+            ViewData["logoutId"] = logoutId;
+            return View();
         }
 
-        [HttpPost(Constants.RoutePaths.Logout)]
+        [HttpPost("ui/logout")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Submit(string signOutId)
-        {
-            await HttpContext.Authentication.SignOutAsync(Constants.PrimaryAuthenticationType);
+        public async Task<IActionResult> Submit(string logoutId) {
+            await HttpContext.Authentication.SignOutAsync(Constants.DefaultCookieAuthenticationScheme);
 
-            // set this so UI rendering sees an anonymous user
-            HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+            var logout = await _interaction.GetLogoutContextAsync(logoutId);
 
-            var vm = new LoggedOutViewModel();
+            var vm = new LoggedOutViewModel() {
+                PostLogoutRedirectUri = logout.PostLogoutRedirectUri,
+                ClientName = logout.ClientId,
+                SignOutIframeUrl = logout.SignOutIFrameUrl
+            };
             return View("LoggedOut", vm);
         }
     }

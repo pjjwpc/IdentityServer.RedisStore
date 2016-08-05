@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using RigoFunc.ApiCore;
+using RigoFunc.ApiCore.Default;
 using RigoFunc.ApiCore.Filters;
 using RigoFunc.IdentityServer;
 
@@ -47,9 +49,9 @@ namespace Host {
 
             // Add API invoker services
             services.AddApiInvoker(options => {
-                options.SmsApiUrl = Configuration["ApiUrls:Sms"];
-                options.EmailApiUrl = Configuration["ApiUrls:Email"];
-                options.AppPushApiUrl = Configuration["ApiUrls:AppPush"];
+                options.SendSmsApi = Configuration["ApiUrls:Sms"];
+                options.SendEmailApi = Configuration["ApiUrls:Email"];
+                options.AppPushApi = Configuration["ApiUrls:AppPush"];
                 options.HeaderRetriever = (url) => {
                     return new[] {
                         new Tuple<string, string>("xunit", "59d63571-c4c2-4daa-aac6-969f581dc1fa")
@@ -58,12 +60,12 @@ namespace Host {
             });
 
             // Use RigoFunc.Account default account service.
-            services.UseDefaultAccountService<AppUser>(options => {
+            services.AddAccountService<AppUser>(options => {
                 options.DefaultClientId = "system";
                 options.DefaultClientSecret = "secret";
                 options.DefaultScope = "doctor consultant finance order payment";
                 options.CodeSmsTemplate = "SMS_1101";
-                options.PasswordSmsTemplate = "SMS_1102";
+                options.PasswordSmsTemplate = "SMS_1101";
             });
 
             services.AddDistributedSqlServerCache(options => {
@@ -73,41 +75,34 @@ namespace Host {
             });
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
-            var builder = services.AddIdentityServer()
+            var builder = services.AddIdentityServer(options => {
+                    options.UserInteractionOptions.LoginUrl = "/ui/login";
+                    options.UserInteractionOptions.LogoutUrl = "/ui/logout";
+                    options.UserInteractionOptions.ConsentUrl = "/ui/consent";
+                    options.UserInteractionOptions.ErrorUrl = "/ui/error";
+                })
                 .SetSigningCredential(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
                 .AddDistributedStores()
                 .ConfigureAspNetCoreIdentity<AppUser>()
-                // what a fuck solution
-                .FixCorsIssues(options => {
+                .AllowCors(options => {
                     options.AllowAnyOrigin = true;
-                }, new string[] {
-                    "api/account/lockout",
-                    "api/account/register",
-                    "api/account/sendcode",
-                    "api/account/login",
-                    "api/account/verifycode",
-                    "api/account/changepassword",
-                    "api/account/resetpassword",
-                    "api/account/update",
-                    "api/weixin/bind",
-                    "api/weixin/login"
                 });
+
+            services.AddScoped<IApiResultHandler, DefaultApiResultHandler>();
+            services.AddScoped<IApiExceptionHandler, DefaultApiExceptionHandler>();
 
             // for the UI
             services
                 .AddMvc()
                 .AddJsonOptions(options => {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 }).AddMvcOptions(options => {
-                    //var policy = new AuthorizationPolicyBuilder()
-                    //     .RequireAuthenticatedUser()
-                    //     .Build();
-                    //options.Filters.Add(new AuthorizeFilter(policy));
-                    options.Filters.Add(new ApiResultFilterAttribute());
-                    options.Filters.Add(new ApiExceptionFilterAttribute());
+                    options.Filters.Add(typeof(ApiResultFilterAttribute));
+                    options.Filters.Add(typeof(ApiExceptionFilterAttribute));
                 })
                 .AddRazorOptions(razor => {
                     razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());
