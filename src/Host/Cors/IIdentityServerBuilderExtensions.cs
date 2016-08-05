@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Host.Cors {
     public static class IIdentityServerBuilderExtensions {
-        public static IIdentityServerBuilder FixCorsIssues(this IIdentityServerBuilder builder, Action<CorsOptions> setupAction, string[] allowedPaths) {
+        public static IIdentityServerBuilder AllowCors(this IIdentityServerBuilder builder, Action<CorsOptions> setupAction) {
             var services = builder.Services;
             if (setupAction != null) {
                 services.Configure(setupAction);
@@ -17,9 +17,9 @@ namespace Host.Cors {
 
             services.AddTransient<ICorsPolicyService, CorsPolicyService>();
 
-            var paths = new List<string>(Constants.RoutePaths.CorsPaths);
+            var paths = new List<string>(Constants.ProtocolRoutePaths.CorsPaths);
 
-            paths.AddRange(allowedPaths);
+            paths.AddRange(CorsOptions.RoutePaths);
 
             // just for allow more route paths
             services.AddTransient<ICorsPolicyProvider>(provider => {

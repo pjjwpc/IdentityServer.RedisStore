@@ -11,35 +11,35 @@ namespace Host.UI.Login {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginController> _logger;
-        private readonly SignInInteraction _signInInteraction;
+        private readonly IUserInteractionService _interaction;
 
         public LoginController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             ILogger<LoginController> logger,
-            SignInInteraction signInInteraction) {
+            IUserInteractionService interaction) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _signInInteraction = signInInteraction;
+            _interaction = interaction;
         }
 
-        [HttpGet(Constants.RoutePaths.Login, Name = "Login")]
-        public async Task<IActionResult> Index(string id) {
+        [HttpGet("ui/login", Name = "Login")]
+        public async Task<IActionResult> Index(string returnUrl) {
             var vm = new LoginViewModel();
 
-            if (id != null) {
-                var request = await _signInInteraction.GetRequestAsync(id);
+            if (returnUrl != null) {
+                var request = await _interaction.GetLoginContextAsync();
                 if (request != null) {
                     vm.UserName = request.LoginHint;
-                    vm.SignInId = id;
+                    vm.ReturnUrl = returnUrl;
                 }
             }
 
             return View(vm);
         }
 
-        [HttpPost(Constants.RoutePaths.Login)]
+        [HttpPost("ui/login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(LoginInputModel model) {
             if (ModelState.IsValid) {
@@ -48,8 +48,8 @@ namespace Host.UI.Login {
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
-                    if (model.SignInId != null) {
-                        return new SignInResult(model.SignInId);
+                    if (model.ReturnUrl != null && _interaction.IsValidReturnUrl(model.ReturnUrl)) {
+                        return Redirect(model.ReturnUrl);
                     }
 
                     return Redirect("~/");
