@@ -38,13 +38,13 @@ namespace Host {
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<AppDbContext>(options =>
-               options.UseSqlServer(Configuration["Data:Default:ConnectionString"]));
+               options.UseSqlServer(Configuration["Data:Default:ConnectionString"], b => b.MigrationsAssembly("Host")));
 
-            services.AddIdentity<AppUser, IdentityRole<int>>(options => {
+            services.AddIdentity<AppUser, IdentityRole<Guid>>(options => {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
-            .AddEntityFrameworkStores<AppDbContext, int>()
+            .AddEntityFrameworkStores<AppDbContext, Guid>()
             .AddDefaultTokenProviders();
 
             // Add API invoker services

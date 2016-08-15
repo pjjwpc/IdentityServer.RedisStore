@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Host.EntityFrameworkCore {
-    public class AppUser : IdentityUser<int> {
+    public class AppUser : IdentityUser<Guid> {
         public AppUser() { }
 
         public AppUser(string userName) : this() {
