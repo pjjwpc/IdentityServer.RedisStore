@@ -24,3 +24,13 @@ var builder = services.AddIdentityServer().AddRedisTransientStores(options=>{
 	options.db = 0;
 });
 ```
+
+# External login
+[SEE:ExternalLogin.md](./doc/ExternalLogin.md)
+```sequence
+title:Title
+participant A
+participant B
+participant C
+
+```
