@@ -1,5 +1,5 @@
 # RigoFunc.IdentityServer
-This repo contains the plugin for [IdentityServer v4](https://github.com/IdentityServer) that uses [ASP.NET Core Identity](https://github.com/aspnet/Identity) as its identity management library.
+This repo contains the plugin for [IdentityServer v4](https://github.com/IdentityServer/IdentityServer4) that uses [ASP.NET Core Identity](https://github.com/aspnet/Identity) as its identity management library.
 
 SEE: [https://github.com/tibold/IdentityServer4.Contrib.AspNetIdentity](https://github.com/tibold/IdentityServer4.Contrib.AspNetIdentity)
 
