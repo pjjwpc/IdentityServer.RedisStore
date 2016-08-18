@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using StackExchange.Redis;
 
-namespace IdentityServer3.Contrib.Store.Redis
+namespace RigoFunc.IdentityServer.Services.Redis
 {
     internal class RedisConnectionMultiplexerStore
     {
