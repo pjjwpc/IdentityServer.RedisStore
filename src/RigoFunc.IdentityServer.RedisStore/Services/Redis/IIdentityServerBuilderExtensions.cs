@@ -1,9 +1,8 @@
 ﻿using System;
 using IdentityServer4.Services;
 using Microsoft.Extensions.DependencyInjection;
-using RigoFunc.IdentityServer.Services.Redis;
 
-namespace RigoFunc.IdentityServer {
+namespace RigoFunc.IdentityServer.Services.Redis {
     /// <summary>
     /// Contains extension methods to <see cref="IIdentityServerBuilder"/> for configuring identity server.
     /// </summary>
