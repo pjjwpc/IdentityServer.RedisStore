@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Newtonsoft.Json;
 using RigoFunc.IdentityServer.Services.Redis.Serialization;
@@ -26,6 +23,8 @@ namespace RigoFunc.IdentityServer.Services.Redis {
         /// </summary>
         /// <param name="clientStore">The client store to load client information from</param>
         /// <param name="scopeStore">The scope store to load scope information from</param>
+        /// <exception cref="ArgumentNullException"><paramref name="clientStore"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="scopeStore"/> is <see langword="null" />.</exception>
         protected BaseTokenStore(IClientStore clientStore, IScopeStore scopeStore) {
             if (clientStore == null) throw new ArgumentNullException(nameof(clientStore));
             if (scopeStore == null) throw new ArgumentNullException(nameof(scopeStore));
@@ -49,6 +48,9 @@ namespace RigoFunc.IdentityServer.Services.Redis {
         /// <param name="json">The json to deserialize</param>
         /// <returns>The deserialized object</returns>
         protected T FromJson(string json) {
+            if (string.IsNullOrEmpty(json)) {
+                return default(T);
+            }
             return JsonConvert.DeserializeObject<T>(json, GetJsonSerializerSettings());
         }
 
