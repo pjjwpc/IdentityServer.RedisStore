@@ -6,13 +6,13 @@ using RigoFunc.IdentityServer.Services.EntityFrameworkCore;
 
 // ReSharper disable once CheckNamespace
 namespace RigoFunc.IdentityServer {
-    public static class IdentityServerServiceCollectionExtensions {
-        [Obsolete("Obsoleted in 1.0.2,use services.AddIdentityServer().AddEntityFrameworkCoreServices")]
-        public static void AddIdentityServerEntityFrameworkCoreServices(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction = null) {
+    public static class IdentityServerBuilderExtension {
+        public static IIdentityServerBuilder AddEntityFrameworkCoreServices(this IIdentityServerBuilder builder, Action<DbContextOptionsBuilder> optionsAction = null) {
+            var services = builder.Services;
             services.AddDbContext<IdentityServerDbContext>(optionsAction);
             services.AddTransient<IScopeStore, EntityFrameworkCoreScopeStore>();
             services.AddTransient<IClientStore, EntityFrameworkCoreClientStore>();
+            return builder;
         }
-
     }
 }

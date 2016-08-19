@@ -1,10 +1,12 @@
 {
-  "version": "1.0.1-*",
+  "version": "1.0.2-*",
   "description": "implement IScopeStore,IClientStore with entityframeworkcore",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
+    "summary": "implement IScopeStore,IClientStore with entityframeworkcore",
     "projectUrl": "https://github.com/xyting/RigoFunc.IdentityServer",
-    "licenseUrl": "",
+    "owners": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
+    "licenseUrl": "MIT",
     "repository": {
       "type": "git",
       "url": "https://github.com/xyting/RigoFunc.IdentityServer.git"
@@ -12,7 +14,8 @@
     "tags": [
       "IdentityServer",
       "EntityFrameworkCore"
-    ]
+    ],
+    "releaseNotes": "https://github.com/xyting/RigoFunc.IdentityServer/blob/master/src/RigoFunc.IdentityServer.Services.EntityFrameworkCore/CHANGELOG.md"
   },
 
   "dependencies": {

@@ -34,3 +34,6 @@ participant B
 participant C
 
 ```
+
+# Clients and Scopes
+[SEE](./src/RigoFunc.IdentityServer.Services.EntityFrameworkCore/README.md)
