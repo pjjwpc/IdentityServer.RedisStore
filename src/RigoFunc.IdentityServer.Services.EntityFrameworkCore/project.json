@@ -6,7 +6,7 @@
     "summary": "implement IScopeStore,IClientStore with entityframeworkcore",
     "projectUrl": "https://github.com/xyting/RigoFunc.IdentityServer",
     "owners": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
-    "licenseUrl": "MIT",
+    "licenseUrl": "https://github.com/xyting/RigoFunc.IdentityServer/blob/master/LICENSE",
     "repository": {
       "type": "git",
       "url": "https://github.com/xyting/RigoFunc.IdentityServer.git"
