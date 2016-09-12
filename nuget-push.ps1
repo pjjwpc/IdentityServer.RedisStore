@@ -14,7 +14,7 @@ $version = $project.version.Trim("-*")
 nuget push .\src\RigoFunc.IdentityServer\bin\Debug\RigoFunc.IdentityServer.$version.nupkg -source nuget -apikey $env:NUGET_API_KEY
 
 
-dotnet pack .\src\RigoFunc.IdentityServe.DistributedStorer
+dotnet pack .\src\RigoFunc.IdentityServe.DistributedStore
 $project = Get-Content .\src\RigoFunc.IdentityServer.DistributedStore\project.json | ConvertFrom-Json
 $version = $project.version.Trim("-*")
 nuget push .\src\RigoFunc.IdentityServer.DistributedStore\bin\Debug\RigoFunc.IdentityServer.DistributedStore.$version.nupkg -source nuget -apikey $env:NUGET_API_KEY
