@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0-rc1-*",
+  "version": "1.1.0-rc1-update1-*",
   "description": "implement IScopeStore,IClientStore with entityframeworkcore",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {

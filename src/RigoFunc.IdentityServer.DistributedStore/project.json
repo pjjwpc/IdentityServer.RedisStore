@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0-rc1-*",
+  "version": "1.1.0-rc1-update1-*",
   "description": "Distribted store abstractions for storing IdentityServer v4 tokens",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
