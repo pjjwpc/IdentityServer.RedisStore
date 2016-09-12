@@ -1,5 +1,6 @@
 ﻿using System;
 using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace RigoFunc.IdentityServer.Services.Redis {
@@ -14,10 +15,7 @@ namespace RigoFunc.IdentityServer.Services.Redis {
             var services = builder.Services;
 
             services.AddSingleton(redisStoreOptions);
-            services.AddSingleton<IAuthorizationCodeStore, RedisAuthorizationCodeStore>();
-            services.AddSingleton<IRefreshTokenStore, RedisRefreshTokenStore>();
-            services.AddSingleton<ITokenHandleStore, RedisTokenHandleStore>();
-            services.AddSingleton<IConsentStore, RedisConsentStore>();
+            services.AddSingleton<IPersistedGrantStore, RedisPersistedGrantStore>();
 
             return builder;
         }

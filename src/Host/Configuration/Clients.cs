@@ -1,4 +1,7 @@
-﻿using IdentityServer4.Models;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using IdentityServer4.Models;
 using System.Collections.Generic;
 
 namespace Host.Configuration
@@ -9,54 +12,6 @@ namespace Host.Configuration
         {
             return new List<Client>
             {
-                new Client
-                {
-                    ClientId = "system",
-                    ClientSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-
-                    AllowedScopes = new List<string>
-                    {
-                        StandardScopes.OpenId.Name,
-                        StandardScopes.Profile.Name,
-                        StandardScopes.Email.Name,
-                        StandardScopes.Roles.Name,
-                        StandardScopes.OfflineAccess.Name,
-                        "doctor", "consultant", "finance", "order", "payment"
-                    },
-
-                    // Defaults to 1296000 seconds / 15 days
-                    AccessTokenLifetime = 1296000,
-                    AccessTokenType = AccessTokenType.Reference
-                },
-
-                new Client
-                {
-                    ClientId = "admin",
-                    ClientSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-
-                    AllowedScopes = new List<string>
-                    {
-                        StandardScopes.OpenId.Name,
-                        StandardScopes.Profile.Name,
-                        StandardScopes.Email.Name,
-                        StandardScopes.Roles.Name,
-                        StandardScopes.OfflineAccess.Name,
-                        "doctor", "consultant", "finance", "order", "payment"
-                    },
-
-                    AccessTokenType = AccessTokenType.Jwt
-                },
-
                 ///////////////////////////////////////////
                 // Console Client Credentials Flow Sample
                 //////////////////////////////////////////
@@ -119,6 +74,55 @@ namespace Host.Configuration
                 },
 
                 ///////////////////////////////////////////
+                // Console Public Resource Owner Flow Sample
+                //////////////////////////////////////////
+                new Client
+                {
+                    ClientId = "roclient.public",
+                    RequireClientSecret = false,
+
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+                    AllowedScopes = new List<string>
+                    {
+                        StandardScopes.OpenId.Name,
+                        StandardScopes.Email.Name,
+                        StandardScopes.OfflineAccess.Name,
+
+                        "api1", "api2"
+                    }
+                },
+
+                ///////////////////////////////////////////
+                // Console Hybrid with PKCE Sample
+                //////////////////////////////////////////
+                new Client
+                {
+                    ClientId = "console.hybrid.pkce",
+                    ClientName = "Console Hybrid with PKCE Sample",
+                    RequireClientSecret = false,
+
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequirePkce = true,
+
+                    RedirectUris = new List<string>
+                    {
+                        "http://127.0.0.1:7890/"
+                    },
+
+                    AllowedScopes = new List<string>
+                    {
+                        StandardScopes.OpenId.Name,
+                        StandardScopes.Profile.Name,
+                        StandardScopes.Email.Name,
+                        StandardScopes.Roles.Name,
+                        StandardScopes.OfflineAccess.Name,
+
+                        "api1", "api2",
+                    },
+                },
+
+                ///////////////////////////////////////////
                 // Introspection Client Sample
                 //////////////////////////////////////////
                 new Client
@@ -144,7 +148,7 @@ namespace Host.Configuration
                 //////////////////////////////////////////
                 new Client
                 {
-                    ClientId = "mvc_implicit",
+                    ClientId = "mvc.implicit",
                     ClientName = "MVC Implicit",
                     ClientUri = "http://identityserver.io",
 
@@ -154,6 +158,11 @@ namespace Host.Configuration
                     {
                         "http://localhost:44077/signin-oidc"
                     },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://localhost:44077/"
+                    },
+                    LogoutUri = "http://localhost:44077/signout-oidc",
 
                     AllowedScopes = new List<string>
                     {
@@ -183,8 +192,13 @@ namespace Host.Configuration
                     AllowAccessTokensViaBrowser = false,
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:44077/signin-oidc"
+                        "http://localhost:21402/signin-oidc"
                     },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://localhost:21402/"
+                    },
+                    LogoutUri = "http://localhost:21402/signout-oidc",
 
                     AllowedScopes = new List<string>
                     {

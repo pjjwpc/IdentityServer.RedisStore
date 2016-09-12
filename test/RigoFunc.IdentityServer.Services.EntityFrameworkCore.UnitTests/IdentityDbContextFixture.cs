@@ -11,7 +11,7 @@ namespace RigoFunc.IdentityServer.Services.EntityFrameworkCore.UnitTests {
             var services = new ServiceCollection();
             //var connectionString = @"Server=(local);Database=identityserver;Trusted_Connection=True;";
             var connectionString = @"Server=192.168.1.13;Database=identityserver;User ID=sa;Password=Welcome123;";
-            services.AddIdentityServerEntityFrameworkCoreServices(options => options.UseSqlServer(connectionString));
+            services.AddIdentityServer().AddEntityFrameworkCoreServices(options => options.UseSqlServer(connectionString));
             services.AddOptions();
             var serviceProvider = services.BuildServiceProvider();
             var dbContext = serviceProvider.GetService<IdentityServerDbContext>();

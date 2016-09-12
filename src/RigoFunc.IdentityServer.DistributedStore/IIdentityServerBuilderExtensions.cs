@@ -1,7 +1,9 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using RigoFunc.IdentityServer.DistributedStore;
+using RigoFunc.IdentityServer.DistributedStore.Store;
 
 namespace Microsoft.Extensions.DependencyInjection {
     /// <summary>
@@ -11,15 +13,9 @@ namespace Microsoft.Extensions.DependencyInjection {
         public static IIdentityServerBuilder AddDistributedStores(this IIdentityServerBuilder builder) {
             var services = builder.Services;
 
-            services.TryAddSingleton<IDataSerializer<Token>, TokenSerializer>();
-            services.TryAddSingleton<IDataSerializer<Consent>, ConsentSerializer>();
-            services.TryAddSingleton<IDataSerializer<RefreshToken>, RefreshTokenSerializer>();
-            services.TryAddSingleton<IDataSerializer<AuthorizationCode>, AuthorizationCodeSerializer>();
+            services.TryAddSingleton<IDataSerializer<PersistedGrant>, PersistedGrantSerializer>();
 
-            services.AddSingleton<IAuthorizationCodeStore, AuthorizationCodeStore>();
-            services.AddSingleton<IRefreshTokenStore, RefreshTokenStore>();
-            services.AddSingleton<ITokenHandleStore, TokenHandleStore>();
-            services.AddSingleton<IConsentStore, ConsentStore>();
+            services.AddSingleton<IPersistedGrantStore,PersistedGrantStore >();
 
             return builder;
         }

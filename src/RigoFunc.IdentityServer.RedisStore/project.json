@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0-*",
+  "version": "1.1.1-rc1-*",
   "description": "use redis to store IdentityServer 4 tokens",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
@@ -17,8 +17,8 @@
     ]
   },
   "dependencies": {
+    "IdentityServer4": "1.0.0-rc1-update1",
     "NETStandard.Library": "1.6.0",
-    "IdentityServer4": "1.0.0-beta5",
     "StackExchange.Redis": "1.1.604-alpha"
   },
 

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 
@@ -18,29 +21,24 @@ namespace RigoFunc.IdentityServer {
             _userManager = userManager;
         }
 
-        /// <summary>
-        /// Validates the resource owner password credential
-        /// </summary>
-        /// <param name="userName">The user name</param>
-        /// <param name="secret">The password or code</param>
-        /// <param name="request">The validated token request.</param>
-        /// <returns>The validation result</returns>
-        public async Task<CustomGrantValidationResult> ValidateAsync(string userName, string secret, ValidatedTokenRequest request) {
-            var user = await _userManager.FindByNameAsync(userName);
+        public Task ValidateAsync(ResourceOwnerPasswordValidationContext context) {
+            var userName = context.UserName;
+            var secret = context.Password;
+            var user = _userManager.FindByNameAsync(userName).Result;
             if (user != null) {
-                var userId = await _userManager.GetUserIdAsync(user);
-                if(await _userManager.CheckPasswordAsync(user, secret)) {
-                    return new CustomGrantValidationResult(userId, "password");
+                var userId = _userManager.GetUserIdAsync(user).Result;
+                var claims = new List<Claim>();//todo
+                if (_userManager.CheckPasswordAsync(user, secret).Result) {
+                    context.Result = new GrantValidationResult(userId, "password", claims);
                 }
                 else {
-                    var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-                    if(await _userManager.VerifyChangePhoneNumberTokenAsync(user, secret, phoneNumber)) {
-                        return new CustomGrantValidationResult(userId, "code");
+                    var phoneNumber = _userManager.GetPhoneNumberAsync(user).Result;
+                    if (_userManager.VerifyChangePhoneNumberTokenAsync(user, secret, phoneNumber).Result) {
+                        context.Result = new GrantValidationResult(userId, "code", claims);
                     }
                 }
             }
-
-            return new CustomGrantValidationResult("Invalid user name or password");
+            return Task.FromResult(0);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RigoFunc.IdentityServer.Services.EntityFrameworkCore;

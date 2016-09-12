@@ -1,4 +1,7 @@
-﻿using IdentityServer4.Models;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using IdentityServer4.Models;
 using System.Collections.Generic;
 
 namespace Host.Configuration
@@ -15,86 +18,6 @@ namespace Host.Configuration
                 StandardScopes.OfflineAccess,
                 StandardScopes.RolesAlwaysInclude,
 
-                new Scope
-                {
-                    Name = "doctor",
-                    DisplayName = "doctor Api.",
-                    Description = "doctor Api.",
-                    Type = ScopeType.Resource,
-
-                    ScopeSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
-                new Scope
-                {
-                    Name = "consultant",
-                    DisplayName = "consultant Api.",
-                    Description = "consultant Api.",
-                    Type = ScopeType.Resource,
-
-                    ScopeSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
-                new Scope
-                {
-                    Name = "finance",
-                    DisplayName = "finance Api.",
-                    Description = "finance Api.",
-                    Type = ScopeType.Resource,
-
-                    ScopeSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
-                new Scope
-                {
-                    Name = "order",
-                    DisplayName = "order Api.",
-                    Description = "order Api.",
-                    Type = ScopeType.Resource,
-
-                    ScopeSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
-                new Scope
-                {
-                    Name = "payment",
-                    DisplayName = "payment Api.",
-                    Description = "payment Api.",
-                    Type = ScopeType.Resource,
-
-                    ScopeSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    Claims = new List<ScopeClaim>
-                    {
-                        new ScopeClaim("role")
-                    }
-                },
                 new Scope
                 {
                     Name = "api1",

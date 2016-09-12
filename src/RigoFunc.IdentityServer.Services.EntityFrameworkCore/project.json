@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2-*",
+  "version": "1.1.0-rc1-*",
   "description": "implement IScopeStore,IClientStore with entityframeworkcore",
   "authors": [ "rigofunc", "rigofunc@outlook.com", "lotosbin", "lotosbin@gmail.com" ],
   "packOptions": {
@@ -22,9 +22,9 @@
     "NETStandard.Library": "1.6.0",
     "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
     "Microsoft.EntityFrameworkCore": "1.0.0",
-    "IdentityServer4": "1.0.0-beta5",
     "System.Linq": "4.1.0",
-    "System.Linq.Queryable": "4.0.1"
+    "System.Linq.Queryable": "4.0.1",
+    "IdentityServer4": "1.0.0-rc1-update1"
   },
 
   "frameworks": {

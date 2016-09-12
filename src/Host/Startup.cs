@@ -76,15 +76,14 @@ namespace Host {
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
             var builder = services.AddIdentityServer(options => {
-                    options.UserInteractionOptions.LoginUrl = "/ui/login";
-                    options.UserInteractionOptions.LogoutUrl = "/ui/logout";
-                    options.UserInteractionOptions.ConsentUrl = "/ui/consent";
-                    options.UserInteractionOptions.ErrorUrl = "/ui/error";
-                })
+                options.UserInteractionOptions.LoginUrl = "/ui/login";
+                options.UserInteractionOptions.LogoutUrl = "/ui/logout";
+                options.UserInteractionOptions.ConsentUrl = "/ui/consent";
+                options.UserInteractionOptions.ErrorUrl = "/ui/error";
+            })
                 .SetSigningCredential(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
-                .AddCustomGrantValidator<CustomGrantValidator>()
                 .AddDistributedStores()
                 .ConfigureAspNetCoreIdentity<AppUser>()
                 .AllowCors(options => {
@@ -93,6 +92,7 @@ namespace Host {
 
             services.AddScoped<IApiResultHandler, DefaultApiResultHandler>();
             services.AddScoped<IApiExceptionHandler, DefaultApiExceptionHandler>();
+            builder.AddExtensionGrantValidator<Extensions.ExtensionGrantValidator>();
 
             // for the UI
             services
@@ -103,10 +103,8 @@ namespace Host {
                 }).AddMvcOptions(options => {
                     options.Filters.Add(typeof(ApiResultFilterAttribute));
                     options.Filters.Add(typeof(ApiExceptionFilterAttribute));
-                })
-                .AddRazorOptions(razor => {
-                    razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());
                 });
+
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory) {

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using Newtonsoft.Json;
 
 namespace RigoFunc.IdentityServer.Services.Redis.Serialization {

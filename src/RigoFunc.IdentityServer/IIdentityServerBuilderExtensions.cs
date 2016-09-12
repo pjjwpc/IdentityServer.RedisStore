@@ -28,7 +28,7 @@ namespace RigoFunc.IdentityServer {
             services.AddTransient<IResourceOwnerPasswordValidator, IdentityResourceOwnerPasswordValidator<TUser>>();
 
             services.Configure<IdentityOptions>(options => {
-                options.Cookies.ApplicationCookie.AuthenticationScheme = Constants.DefaultCookieAuthenticationScheme;
+                options.Cookies.ApplicationCookie.AuthenticationScheme = IdentityServerConstants.DefaultCookieAuthenticationScheme;
                 options.Cookies.ApplicationCookie.LoginPath = new PathString("/ui/login");
                 options.Cookies.ApplicationCookie.LogoutPath = new PathString("/ui/logout");
 
@@ -39,7 +39,7 @@ namespace RigoFunc.IdentityServer {
 
             services.Configure<IdentityServerOptions>(
                options => {
-                   options.AuthenticationOptions.AuthenticationScheme = Constants.DefaultCookieAuthenticationScheme;
+                   options.AuthenticationOptions.AuthenticationScheme = IdentityServerConstants.DefaultCookieAuthenticationScheme;
                });
 
             return builder;
