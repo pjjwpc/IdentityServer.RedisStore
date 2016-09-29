@@ -13,10 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
-using RigoFunc.ApiCore;
-using RigoFunc.ApiCore.Default;
-using RigoFunc.ApiCore.Filters;
-using RigoFunc.IdentityServer;
 
 namespace Host {
     public class Startup {
@@ -47,27 +43,6 @@ namespace Host {
             .AddEntityFrameworkStores<AppDbContext, Guid>()
             .AddDefaultTokenProviders();
 
-            // Add API invoker services
-            services.AddApiInvoker(options => {
-                options.SendSmsApi = Configuration["ApiUrls:Sms"];
-                options.SendEmailApi = Configuration["ApiUrls:Email"];
-                options.AppPushApi = Configuration["ApiUrls:AppPush"];
-                options.HeaderRetriever = (url) => {
-                    return new[] {
-                        new Tuple<string, string>("xunit", "59d63571-c4c2-4daa-aac6-969f581dc1fa")
-                    };
-                };
-            });
-
-            // Use RigoFunc.Account default account service.
-            services.AddAccountService<AppUser>(options => {
-                options.DefaultClientId = "system";
-                options.DefaultClientSecret = "secret";
-                options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SMS_1101";
-                options.PasswordSmsTemplate = "SMS_1101";
-            });
-
             services.AddDistributedSqlServerCache(options => {
                 options.ConnectionString = Configuration["Data:Default:ConnectionString"];
                 options.SchemaName = "dbo";
@@ -84,15 +59,11 @@ namespace Host {
                 .SetSigningCredential(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
-                .AddDistributedStores()
-                .ConfigureAspNetCoreIdentity<AppUser>()
                 .AllowCors(options => {
                     options.AllowAnyOrigin = true;
                 });
 
-            services.AddScoped<IApiResultHandler, DefaultApiResultHandler>();
-            services.AddScoped<IApiExceptionHandler, DefaultApiExceptionHandler>();
-            builder.AddExtensionGrantValidator<Extensions.ExtensionGrantValidator>();
+            //builder.AddExtensionGrantValidator<Extensions.ExtensionGrantValidator>();
 
             // for the UI
             services
@@ -100,9 +71,6 @@ namespace Host {
                 .AddJsonOptions(options => {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                }).AddMvcOptions(options => {
-                    options.Filters.Add(typeof(ApiResultFilterAttribute));
-                    options.Filters.Add(typeof(ApiExceptionFilterAttribute));
                 });
 
         }

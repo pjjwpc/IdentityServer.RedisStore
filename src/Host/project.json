@@ -20,11 +20,7 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "Love.Net.ApiInvoker": "1.0.0",
-    "RigoFunc.Account": "1.1.0",
-    "RigoFunc.ApiCore": "1.1.9",
-    "RigoFunc.IdentityServer": "1.0.0-*",
-    "RigoFunc.IdentityServer.DistributedStore": "1.0.0-*"
+    "IdentityServer4": "1.0.0-rc1-update1"
   },
 
   "tools": {
