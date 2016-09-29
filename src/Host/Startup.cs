@@ -13,10 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
-using RigoFunc.ApiCore;
-using RigoFunc.ApiCore.Default;
-using RigoFunc.ApiCore.Filters;
-using RigoFunc.IdentityServer;
 
 namespace Host {
     public class Startup {
@@ -60,39 +56,23 @@ namespace Host {
             });
 
             // Use RigoFunc.Account default account service.
-            services.AddAccountService<AppUser>(options => {
-                options.DefaultClientId = "system";
-                options.DefaultClientSecret = "secret";
-                options.DefaultScope = "doctor consultant finance order payment";
-                options.CodeSmsTemplate = "SMS_1101";
-                options.PasswordSmsTemplate = "SMS_1101";
-            });
-
-            services.AddDistributedSqlServerCache(options => {
-                options.ConnectionString = Configuration["Data:Default:ConnectionString"];
-                options.SchemaName = "dbo";
-                options.TableName = "TokenCache";
-            });
 
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
             var builder = services.AddIdentityServer(options => {
-                    options.UserInteractionOptions.LoginUrl = "/ui/login";
-                    options.UserInteractionOptions.LogoutUrl = "/ui/logout";
-                    options.UserInteractionOptions.ConsentUrl = "/ui/consent";
-                    options.UserInteractionOptions.ErrorUrl = "/ui/error";
+                    //options.UserInteractionOptions.LoginUrl = "/ui/login";
+                    //options.UserInteractionOptions.LogoutUrl = "/ui/logout";
+                    //options.UserInteractionOptions.ConsentUrl = "/ui/consent";
+                    //options.UserInteractionOptions.ErrorUrl = "/ui/error";
                 })
                 .SetSigningCredential(cert)
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryScopes(Scopes.Get())
+                //.AddInMemoryUsers(Users.get())
                 .AddCustomGrantValidator<CustomGrantValidator>()
-                .AddDistributedStores()
-                .ConfigureAspNetCoreIdentity<AppUser>()
                 .AllowCors(options => {
                     options.AllowAnyOrigin = true;
                 });
 
-            services.AddScoped<IApiResultHandler, DefaultApiResultHandler>();
-            services.AddScoped<IApiExceptionHandler, DefaultApiExceptionHandler>();
 
             // for the UI
             services
@@ -100,9 +80,6 @@ namespace Host {
                 .AddJsonOptions(options => {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                }).AddMvcOptions(options => {
-                    options.Filters.Add(typeof(ApiResultFilterAttribute));
-                    options.Filters.Add(typeof(ApiExceptionFilterAttribute));
                 })
                 .AddRazorOptions(razor => {
                     razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());

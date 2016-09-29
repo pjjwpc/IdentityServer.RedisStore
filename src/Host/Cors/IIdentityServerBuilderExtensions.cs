@@ -17,17 +17,6 @@ namespace Host.Cors {
 
             services.AddTransient<ICorsPolicyService, CorsPolicyService>();
 
-            var paths = new List<string>(Constants.ProtocolRoutePaths.CorsPaths);
-
-            paths.AddRange(CorsOptions.RoutePaths);
-
-            // just for allow more route paths
-            services.AddTransient<ICorsPolicyProvider>(provider => {
-                return new PolicyProvider(
-                    provider.GetRequiredService<ILogger<PolicyProvider>>(),
-                    paths,
-                    provider.GetRequiredService<ICorsPolicyService>());
-            });
             services.AddCors();
 
             return builder;
