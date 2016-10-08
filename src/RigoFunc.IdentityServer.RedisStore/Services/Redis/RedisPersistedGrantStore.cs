@@ -38,7 +38,8 @@ namespace RigoFunc.IdentityServer.Services.Redis {
         }
 
         public Task RemoveAsync(string key) {
-            return _db.KeyDeleteAsync(key);
+            var redisKey = $"PersistedGrant_{key}";
+            return _db.KeyDeleteAsync(redisKey);
         }
 
         public Task RemoveAllAsync(string subjectId, string clientId) {
